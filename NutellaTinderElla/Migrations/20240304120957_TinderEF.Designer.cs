@@ -9,11 +9,11 @@ using WebMovieApi.Data;
 
 #nullable disable
 
-namespace WebApiMovie2.Migrations
+namespace NutellaTinderElla.Migrations
 {
     [DbContext(typeof(MovieDbContext))]
-    [Migration("20230929104936_initialDb")]
-    partial class initialDb
+    [Migration("20240304120957_TinderEF")]
+    partial class TinderEF
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

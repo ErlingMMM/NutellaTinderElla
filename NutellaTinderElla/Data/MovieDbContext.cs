@@ -17,7 +17,7 @@ namespace WebMovieApi.Data
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             //Switch out in order to test/make database
-            optionsBuilder.UseSqlServer("Data Source=N-NO-01-01-6434\\SQLEXPRESS; Initial Catalog=MoviesEF; Integrated Security= true; Trust Server Certificate= true;");
+            optionsBuilder.UseSqlServer("Data Source=N-NO-01-01-6434\\SQLEXPRESS; Initial Catalog=TinderEF; Integrated Security= true; Trust Server Certificate= true;");
             //N-NO-01-01-6434\SQLEXPRESS
             //N-NO-01-01-5733\SQLEXPRESS
         }

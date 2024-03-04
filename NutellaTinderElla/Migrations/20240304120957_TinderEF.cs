@@ -4,10 +4,10 @@
 
 #pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
 
-namespace WebApiMovie2.Migrations
+namespace NutellaTinderElla.Migrations
 {
     /// <inheritdoc />
-    public partial class initialDb : Migration
+    public partial class TinderEF : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

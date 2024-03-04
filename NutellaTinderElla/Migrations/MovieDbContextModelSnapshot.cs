@@ -8,7 +8,7 @@ using WebMovieApi.Data;
 
 #nullable disable
 
-namespace WebApiMovie2.Migrations
+namespace NutellaTinderElla.Migrations
 {
     [DbContext(typeof(MovieDbContext))]
     partial class MovieDbContextModelSnapshot : ModelSnapshot
