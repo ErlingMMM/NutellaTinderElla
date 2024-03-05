@@ -5,16 +5,39 @@ namespace NutellaTinderElla.Data.Models
 {
     public class Likes
     {
-        //for good practice
         [Key]
         public int Id { get; set; }
         [StringLength(100)]
         public string Name { get; set; } = null!;
-        public Enum GenderPreference { get; set; } = null!;
+        public GenderPreferenceEnum GenderPreference { get; set; }
 
-        public Enum Gender { get; set; } = null!;
+        public enum GenderPreferenceEnum
+        {
+            Male,
+            Female,
+            Other
+        }
 
-        public Enum Seeking { get; set; } = null!;
+        public GenderEnum Gender { get; set; }
+
+        public enum GenderEnum
+        {
+            Male,
+            Female,
+            Other
+        }
+
+        public SeekingEnum Seeking { get; set; }
+
+        public enum SeekingEnum
+        {
+            Casual,
+            Relationship,
+            Friendship,
+            Networking,
+            ActivityPartner,
+            Experimenting
+        }
 
 
         [StringLength(255)]

@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 using NutellaTinderElla.Data.Dtos.ActiveUser;
 using NutellaTinderElla.Services.ActiveUser;
 using NutellaTinderEllaApi.Data.Exceptions;
-using NutellaTinderEllaApi.Data.Models;
 using System.Net.Mime;
 
 namespace NutellaTinderElla.Controllers
@@ -38,9 +37,8 @@ namespace NutellaTinderElla.Controllers
         {
             try
             {
-                return Ok(_mapper
-                    .Map<CurrentUserDTO>(
-                        await _currentUserService.GetByIdAsync(id)));
+                var currentUser = await _currentUserService.GetByIdAsync(id);
+                return Ok(currentUser);
             }
             catch (EntityNotFoundException ex)
             {
