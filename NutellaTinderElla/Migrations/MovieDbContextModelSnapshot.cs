@@ -4,13 +4,13 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using WebMovieApi.Data;
+using NutellaTinderEllaApi.Data;
 
 #nullable disable
 
 namespace NutellaTinderElla.Migrations
 {
-    [DbContext(typeof(MovieDbContext))]
+    [DbContext(typeof(TinderDbContext))]
     partial class MovieDbContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)

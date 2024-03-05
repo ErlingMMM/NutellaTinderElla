@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace WebMovieApi.Data.Dtos.Character
+namespace NutellaTinderEllaApi.Data.Dtos.Character
 {
     public class CharacterPostDTO
     {

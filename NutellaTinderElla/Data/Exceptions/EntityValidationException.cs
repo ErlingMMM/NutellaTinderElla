@@ -1,4 +1,4 @@
-﻿namespace WebMovieApi.Data.Exceptions
+﻿namespace NutellaTinderEllaApi.Data.Exceptions
 {
     public class EntityValidationException : Exception
     {

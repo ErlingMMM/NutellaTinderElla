@@ -1,15 +1,15 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using WebMovieApi.Data.Dtos.Franchise;
-using WebMovieApi.Data.Dtos.Movie;
-using WebMovieApi.Data.Dtos.Character;
-using WebMovieApi.Data.Exceptions;
-using WebMovieApi.Data.Models;
-using WebMovieApi.Services.Franchises;
+using NutellaTinderEllaApi.Data.Dtos.Franchise;
+using NutellaTinderEllaApi.Data.Dtos.Movie;
+using NutellaTinderEllaApi.Data.Dtos.Character;
+using NutellaTinderEllaApi.Data.Exceptions;
+using NutellaTinderEllaApi.Data.Models;
+using NutellaTinderEllaApi.Services.Franchises;
 using System.Net.Mime;
 
 
-namespace WebMovieApi.Controllers
+namespace NutellaTinderEllaApi.Controllers
 {
     [ApiController]
     [Route("api/v1/franchise")]

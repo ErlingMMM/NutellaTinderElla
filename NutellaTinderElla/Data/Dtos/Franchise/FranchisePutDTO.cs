@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace WebMovieApi.Data.Dtos.Franchise
+namespace NutellaTinderEllaApi.Data.Dtos.Franchise
 {
     public class FranchisePutDTO
     {

@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace WebMovieApi.Data.Models
+namespace NutellaTinderEllaApi.Data.Models
 {
     //Define the structure of the data that will be stored in the database. 
     [Table(nameof(Movie))]

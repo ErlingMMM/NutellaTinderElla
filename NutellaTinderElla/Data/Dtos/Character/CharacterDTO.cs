@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Hosting.Server;
-using WebMovieApi.Data.Dtos.Movie;
+using NutellaTinderEllaApi.Data.Dtos.Movie;
 
-namespace WebMovieApi.Data.Dtos.Character
+namespace NutellaTinderEllaApi.Data.Dtos.Character
 {
     public class CharacterDTO
     {

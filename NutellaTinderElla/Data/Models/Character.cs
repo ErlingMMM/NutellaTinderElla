@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using WebMovieApi.Data.Dtos.Movie;
+using NutellaTinderEllaApi.Data.Dtos.Movie;
 
-namespace WebMovieApi.Data.Models
+namespace NutellaTinderEllaApi.Data.Models
 {
     //Create table name
     [Table(nameof(Character))]

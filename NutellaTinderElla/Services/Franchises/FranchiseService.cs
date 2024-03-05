@@ -1,20 +1,20 @@
-﻿using WebMovieApi.Data;
-using WebMovieApi.Data.Models;
+﻿using NutellaTinderEllaApi.Data;
+using NutellaTinderEllaApi.Data.Models;
 using Microsoft.EntityFrameworkCore;
-using WebMovieApi.Data.Exceptions;
-using WebMovieApi.Services;
+using NutellaTinderEllaApi.Data.Exceptions;
+using NutellaTinderEllaApi.Services;
 
 
-namespace WebMovieApi.Services.Franchises
+namespace NutellaTinderEllaApi.Services.Franchises
 {
     public class FranchiseService : IFranchiseService
     {
         //Handle tasks like data validation, processing, and interactions with the database or external APIs.
         //Ensure that the application's business rules are enforced.
 
-        private readonly MovieDbContext _context;
+        private readonly TinderDbContext _context;
 
-        public FranchiseService(MovieDbContext context)
+        public FranchiseService(TinderDbContext context)
         {
             _context = context;
         }

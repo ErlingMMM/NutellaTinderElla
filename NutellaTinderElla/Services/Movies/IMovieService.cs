@@ -1,9 +1,9 @@
-﻿using WebMovieApi.Data.Models;
-using WebMovieApi.Data.Exceptions;
+﻿using NutellaTinderEllaApi.Data.Models;
+using NutellaTinderEllaApi.Data.Exceptions;
 using Microsoft.EntityFrameworkCore;
 
 
-namespace WebMovieApi.Services.Movies
+namespace NutellaTinderEllaApi.Services.Movies
 {
     public interface IMovieService : ICrudService<Movie, int>
     {

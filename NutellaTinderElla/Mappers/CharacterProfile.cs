@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
-using WebMovieApi.Data.Dtos.Character;
-using WebMovieApi.Data.Dtos.Movie;
-using WebMovieApi.Data.Models;
+using NutellaTinderEllaApi.Data.Dtos.Character;
+using NutellaTinderEllaApi.Data.Dtos.Movie;
+using NutellaTinderEllaApi.Data.Models;
 
-namespace WebMovieApi.Mappers
+namespace NutellaTinderEllaApi.Mappers
 {
     public class CharacterProfile : Profile
     {

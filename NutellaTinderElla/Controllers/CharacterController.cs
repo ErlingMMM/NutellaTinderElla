@@ -1,14 +1,14 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using System.Net.Mime;
-using WebMovieApi.Data.Dtos.Character;
-using WebMovieApi.Data.Exceptions;
-using WebMovieApi.Data.Models;
-using WebMovieApi.Services.Characters;
+using NutellaTinderEllaApi.Data.Dtos.Character;
+using NutellaTinderEllaApi.Data.Exceptions;
+using NutellaTinderEllaApi.Data.Models;
+using NutellaTinderEllaApi.Services.Characters;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
-namespace WebMovieApi.Controllers
+namespace NutellaTinderEllaApi.Controllers
 {
     [ApiController]
     [Route("api/v1/Character")]

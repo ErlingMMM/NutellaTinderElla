@@ -5,13 +5,13 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using WebMovieApi.Data;
+using NutellaTinderEllaApi.Data;
 
 #nullable disable
 
 namespace NutellaTinderElla.Migrations
 {
-    [DbContext(typeof(MovieDbContext))]
+    [DbContext(typeof(TinderDbContext))]
     [Migration("20240304120957_TinderEF")]
     partial class TinderEF
     {

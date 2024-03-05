@@ -1,6 +1,6 @@
-﻿using WebMovieApi.Data.Exceptions;
+﻿using NutellaTinderEllaApi.Data.Exceptions;
 
-namespace WebMovieApi.Services
+namespace NutellaTinderEllaApi.Services
 {
     //Interface that represents the basic CRUD (Create, Read, Update, Delete)
     //operations for a data entity in a software application.

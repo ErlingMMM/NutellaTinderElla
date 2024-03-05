@@ -1,16 +1,16 @@
 using Microsoft.OpenApi.Models;
-using WebMovieApi.Services.Characters;
-using WebMovieApi.Services.Franchises;
-using WebMovieApi.Services.Movies;
-using WebMovieApi.Data.Models;
-using WebMovieApi.Data;
+using NutellaTinderEllaApi.Services.Characters;
+using NutellaTinderEllaApi.Services.Franchises;
+using NutellaTinderEllaApi.Services.Movies;
+using NutellaTinderEllaApi.Data.Models;
+using NutellaTinderEllaApi.Data;
 using System.Reflection;
 using Microsoft.EntityFrameworkCore;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using AutoMapper;
 
 
-namespace WebMovieApi
+namespace NutellaTinderEllaApi
 {
     public class Program
     {
@@ -40,7 +40,7 @@ namespace WebMovieApi
             });
 
 
-            builder.Services.AddDbContext<MovieDbContext>(options =>
+            builder.Services.AddDbContext<TinderDbContext>(options =>
             options.UseSqlServer(builder.Configuration.GetConnectionString("Default")));
             // Add our service
             builder.Services.AddScoped<IMovieService, MovieService>();

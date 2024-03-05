@@ -1,4 +1,4 @@
-﻿namespace WebMovieApi.Data.Models
+﻿namespace NutellaTinderEllaApi.Data.Models
 {
     //Define the structure of the data that will be stored in the database. 
     public class CharacterMovie

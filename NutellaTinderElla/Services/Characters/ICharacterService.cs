@@ -1,8 +1,8 @@
-﻿using WebMovieApi.Data.Models;
-using WebMovieApi.Data.Exceptions;
+﻿using NutellaTinderEllaApi.Data.Models;
+using NutellaTinderEllaApi.Data.Exceptions;
 
 
-namespace WebMovieApi.Services.Characters
+namespace NutellaTinderEllaApi.Services.Characters
 {
     public interface ICharacterService : ICrudService<Character, int>
     {

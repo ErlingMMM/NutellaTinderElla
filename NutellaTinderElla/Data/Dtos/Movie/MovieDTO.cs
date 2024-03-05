@@ -1,6 +1,6 @@
-﻿using WebMovieApi.Data.Dtos.Character;
+﻿using NutellaTinderEllaApi.Data.Dtos.Character;
 
-namespace WebMovieApi.Data.Dtos.Movie
+namespace NutellaTinderEllaApi.Data.Dtos.Movie
 {
     public class MovieDTO
     {

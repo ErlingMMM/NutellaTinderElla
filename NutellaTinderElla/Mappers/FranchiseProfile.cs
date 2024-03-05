@@ -1,10 +1,10 @@
 ﻿using Microsoft.Extensions.Options;
 using AutoMapper;
-using WebMovieApi.Data.Models;
-using WebMovieApi.Data.Dtos.Franchise;
-using WebMovieApi.Data.Dtos.Movie;
+using NutellaTinderEllaApi.Data.Models;
+using NutellaTinderEllaApi.Data.Dtos.Franchise;
+using NutellaTinderEllaApi.Data.Dtos.Movie;
 
-namespace WebMovieApi.Mappers
+namespace NutellaTinderEllaApi.Mappers
 {
     public class FranchiseProfile : Profile
     {

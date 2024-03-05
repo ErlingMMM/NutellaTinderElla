@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace WebMovieApi.Pages
+namespace NutellaTinderEllaApi.Pages
 {
     public class PrivacyModel : PageModel
     {

@@ -1,8 +1,8 @@
-﻿using WebMovieApi.Data.Models;
-using WebMovieApi.Data.Exceptions;
+﻿using NutellaTinderEllaApi.Data.Models;
+using NutellaTinderEllaApi.Data.Exceptions;
 
 
-namespace WebMovieApi.Services.Franchises
+namespace NutellaTinderEllaApi.Services.Franchises
 {
     public interface IFranchiseService : ICrudService<Franchise, int>
     {
