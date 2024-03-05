@@ -5,7 +5,7 @@
 using NutellaTinderElla.Data.Dtos.Matching;
 
 
-namespace NutellaTinderElla.Data.Dtos.CurrentUser
+namespace NutellaTinderElla.Data.Dtos.ActiveUser
 {
     public class CurrentUserDTO
     {

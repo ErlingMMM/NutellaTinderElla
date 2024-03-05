@@ -1,6 +1,7 @@
 using Microsoft.OpenApi.Models;
 using NutellaTinderEllaApi.Services.Characters;
 using NutellaTinderEllaApi.Services.Franchises;
+using NutellaTinderElla.Services.ActiveUser;
 using NutellaTinderEllaApi.Services.Movies;
 using NutellaTinderEllaApi.Data.Models;
 using NutellaTinderEllaApi.Data;
@@ -46,11 +47,14 @@ namespace NutellaTinderEllaApi
             builder.Services.AddScoped<IMovieService, MovieService>();
             builder.Services.AddScoped<IFranchiseService, FranchiseService>();
             builder.Services.AddScoped<ICharacterService, CharacterService>();
+            builder.Services.AddScoped<ICurrentUserService, CurrentUserService>();
             // Add automapper
             builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             builder.Services.AddAutoMapper(typeof(FranchiseService));
             builder.Services.AddAutoMapper(typeof(CharacterService));
             builder.Services.AddAutoMapper(typeof(MovieService));
+            builder.Services.AddAutoMapper(typeof(CurrentUser));
+
 
             var app = builder.Build();
 
