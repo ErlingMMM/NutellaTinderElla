@@ -1,7 +1,4 @@
 ﻿
-
-
-
 using NutellaTinderElla.Data.Dtos.Matching;
 
 
@@ -15,35 +12,11 @@ namespace NutellaTinderElla.Data.Dtos.ActiveUser
         public string Name { get; set; } = null!;
         public string Picture { get; set; } = null!;
 
-        public GenderPreferenceEnum GenderPreference { get; set; }
+        public int GenderPreference { get; set; }
 
-        public enum GenderPreferenceEnum
-        {
-            Male,
-            Female,
-            Other
-        }
+        public int Gender { get; set; }
 
-        public GenderEnum Gender { get; set; }
-
-        public enum GenderEnum
-        {
-            Male,
-            Female,
-            Other
-        }
-
-        public SeekingEnum Seeking { get; set; }
-
-        public enum SeekingEnum
-        {
-            Casual,
-            Relationship,
-            Friendship,
-            Networking,
-            ActivityPartner,
-            Experimenting
-        }
+        public int Seeking { get; set; }
 
         public string Bio { get; set; } = null!;
         public string Email { get; set; } = null!;

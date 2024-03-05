@@ -37,9 +37,9 @@ namespace NutellaTinderEllaApi.Data
                     Age = 28,
                     Email = "emily.johnson@example.com",
                     Bio = "Passionate about travel, cooking, and outdoor adventures. Looking for someone to explore new cuisines and hiking trails with. Let's create memories together!",
-                    Gender = Models.CurrentUser.GenderEnum.Female,
-                    GenderPreference = Models.CurrentUser.GenderPreferenceEnum.Male,
-                    Seeking = Models.CurrentUser.SeekingEnum.Relationship,
+                    Gender = 1,
+                    GenderPreference = 1,
+                    Seeking = 0,
                     PhoneNumber = "555-123-4567",
                     Picture = "emily_profile_picture.jpg"
                 });

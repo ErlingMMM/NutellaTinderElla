@@ -375,11 +375,11 @@ namespace NutellaTinderElla.Migrations
                             Bio = "Passionate about travel, cooking, and outdoor adventures. Looking for someone to explore new cuisines and hiking trails with. Let's create memories together!",
                             Email = "emily.johnson@example.com",
                             Gender = 1,
-                            GenderPreference = 0,
+                            GenderPreference = 1,
                             Name = "Emily Johnson",
                             PhoneNumber = "555-123-4567",
                             Picture = "emily_profile_picture.jpg",
-                            Seeking = 1
+                            Seeking = 0
                         });
                 });
 

@@ -260,7 +260,7 @@ namespace NutellaTinderElla.Migrations
             migrationBuilder.InsertData(
                 table: "CurrentUser",
                 columns: new[] { "Id", "Age", "Bio", "Email", "Gender", "GenderPreference", "Name", "PhoneNumber", "Picture", "Seeking" },
-                values: new object[] { 1, 28, "Passionate about travel, cooking, and outdoor adventures. Looking for someone to explore new cuisines and hiking trails with. Let's create memories together!", "emily.johnson@example.com", 1, 0, "Emily Johnson", "555-123-4567", "emily_profile_picture.jpg", 1 });
+                values: new object[] { 1, 28, "Passionate about travel, cooking, and outdoor adventures. Looking for someone to explore new cuisines and hiking trails with. Let's create memories together!", "emily.johnson@example.com", 1, 1, "Emily Johnson", "555-123-4567", "emily_profile_picture.jpg", 0 });
 
             migrationBuilder.InsertData(
                 table: "Franchise",
