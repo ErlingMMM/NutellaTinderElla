@@ -53,7 +53,7 @@ namespace NutellaTinderEllaApi
             builder.Services.AddAutoMapper(typeof(FranchiseService));
             builder.Services.AddAutoMapper(typeof(CharacterService));
             builder.Services.AddAutoMapper(typeof(MovieService));
-            builder.Services.AddAutoMapper(typeof(CurrentUser));
+            builder.Services.AddAutoMapper(typeof(CurrentUserService));
 
 
             var app = builder.Build();

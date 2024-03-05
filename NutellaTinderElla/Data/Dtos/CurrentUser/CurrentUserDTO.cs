@@ -15,11 +15,35 @@ namespace NutellaTinderElla.Data.Dtos.ActiveUser
         public string Name { get; set; } = null!;
         public string Picture { get; set; } = null!;
 
-        public Enum Gender { get; set; } = null!;
+        public GenderPreferenceEnum GenderPreference { get; set; }
 
-        public Enum GenderPreference { get; set; } = null!;
+        public enum GenderPreferenceEnum
+        {
+            Male,
+            Female,
+            Other
+        }
 
-        public Enum Seeking { get; set; } = null!;
+        public GenderEnum Gender { get; set; }
+
+        public enum GenderEnum
+        {
+            Male,
+            Female,
+            Other
+        }
+
+        public SeekingEnum Seeking { get; set; }
+
+        public enum SeekingEnum
+        {
+            Casual,
+            Relationship,
+            Friendship,
+            Networking,
+            ActivityPartner,
+            Experimenting
+        }
 
         public string Bio { get; set; } = null!;
         public string Email { get; set; } = null!;

@@ -1,15 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-using System.ComponentModel.DataAnnotations;
-using NutellaTinderElla.Data.Models;
+﻿using System.ComponentModel.DataAnnotations;
 
-namespace NutellaTinderEllaApi.Data.Models
+namespace NutellaTinderElla.Data.Dtos.ActiveUser
 {
-    //Define the structure of the data that will be stored in the database. 
-    [Table(nameof(CurrentUser))]
-    public class CurrentUser
+    public class CurrentUserPostDTO
     {
-        [Key]
-        public int Id { get; set; }
         [StringLength(100)]
         public string Name { get; set; } = null!;
 
@@ -54,25 +48,5 @@ namespace NutellaTinderEllaApi.Data.Models
         [StringLength(255)]
         public string Picture { get; set; } = null!;
         public int Age { get; set; }
-
-        public ICollection<Likes>? Likes { get; set; }
-        public ICollection<Dislikes>? Dislikes { get; set; }
-        public ICollection<Matches>? Matches { get; set; }
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
