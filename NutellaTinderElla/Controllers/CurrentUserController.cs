@@ -71,11 +71,9 @@ namespace NutellaTinderElla.Controllers
         /// <param name="id"></param>
         /// <param name="likes"></param>
         /// <returns></returns>
-        [HttpPut("{id}likes")]
+        [HttpPut("{id}/likes")]
         public async Task<IActionResult> PutLikes(int id, LikesPutDTO likedUser)
         {
-
-
             try
             {
                 await _currentUserService.UpdateAsync(_mapper.Map<CurrentUser>(likedUser));
@@ -87,6 +85,8 @@ namespace NutellaTinderElla.Controllers
 
             return NoContent();
         }
+
+
 
     }
 }

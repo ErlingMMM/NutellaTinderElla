@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using NutellaTinderElla.Data.Models;
 
 namespace NutellaTinderEllaApi.Data.Models
 {
@@ -38,6 +38,11 @@ namespace NutellaTinderEllaApi.Data.Models
 
         public int Age { get; set; }
 
-        public List<int> Likes { get; set; }
+        public ICollection<Like> Likes { get; set; }
+
+        public CurrentUser()
+        {
+            Likes = new List<Like>();
+        }
     }
 }

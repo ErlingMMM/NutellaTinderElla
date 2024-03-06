@@ -13,6 +13,8 @@ namespace NutellaTinderEllaApi.Data
 
         //Tables to be made when migration
         public DbSet<CurrentUser> CurrentUser { get; set; }
+        public DbSet<Like> Likes { get; set; }
+
 
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -36,7 +38,7 @@ namespace NutellaTinderEllaApi.Data
                     GenderPreference = 1,
                     Seeking = 0,
                     PhoneNumber = "555-123-4567",
-                    Picture = "emily_profile_picture.jpg"
+                    Picture = "emily_profile_picture.jpg",
                 },
 
 
@@ -172,6 +174,24 @@ new CurrentUser
     Picture = "isabella_profile_picture.jpg"
 }
     );
+
+
+
+
+            modelBuilder.Entity<Like>()
+              .HasKey(l => new { l.LikerId, l.LikedUserId });
+
+            modelBuilder.Entity<Like>()
+                .HasOne(l => l.Liker)
+                .WithMany(u => u.Likes)
+                .HasForeignKey(l => l.LikerId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Like>()
+                .HasOne(l => l.LikedUser)
+                .WithMany()
+                .HasForeignKey(l => l.LikedUserId)
+                .OnDelete(DeleteBehavior.Restrict);
 
 
         }

@@ -40,7 +40,7 @@ namespace NutellaTinderElla.Services.ActiveUser
         }
         public async Task DeleteByIdAsync(int id)
         {
-            if (!await CurrentUSerExistsAsync(id))
+            if (!await CurrentUserExistsAsync(id))
                 throw new EntityNotFoundException(nameof(CurrentUser), id);
 
             var curUs = await _context.CurrentUser
@@ -55,22 +55,19 @@ namespace NutellaTinderElla.Services.ActiveUser
         }
         public async Task<CurrentUser> UpdateAsync(CurrentUser obj)
         {
-            {
-                if (!await CurrentUSerExistsAsync(obj.Id))
-                    throw new EntityNotFoundException(nameof(CurrentUser), obj.Id);
+            if (!await CurrentUserExistsAsync(obj.Id))
+                throw new EntityNotFoundException(nameof(CurrentUser), obj.Id);
 
-                //Needs to clear relations
-                //obj.Movies.Clear();
 
-                _context.Entry(obj).State = EntityState.Modified;
-                _context.SaveChanges();
+            _context.Entry(obj).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
 
-                return obj;
-            }
+            return obj;
         }
 
+
         //Helper Methods
-        private async Task<bool> CurrentUSerExistsAsync(int id)
+        private async Task<bool> CurrentUserExistsAsync(int id)
         {
             return await _context.CurrentUser.AnyAsync(c => c.Id == id);
         }

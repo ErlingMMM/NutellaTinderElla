@@ -1,8 +1,11 @@
-﻿namespace NutellaTinderElla.Data.Dtos.Matching
+﻿using NutellaTinderEllaApi.Data.Models;
+
+namespace NutellaTinderElla.Data.Dtos.Matching
 {
     public class LikesPutDTO
     {
-        public List<int> Likes { get; set; }
+        public int LikerId { get; set; }
+        public int LikedUserId { get; set; }
 
     }
 }
