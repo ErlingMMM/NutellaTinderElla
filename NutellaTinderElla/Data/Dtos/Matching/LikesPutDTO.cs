@@ -1,6 +1,7 @@
 ﻿namespace NutellaTinderElla.Data.Dtos.Matching
 {
-    public class LikesDTO
+    public class LikesPutDTO
     {
+        public int Id { get; set; }
     }
 }

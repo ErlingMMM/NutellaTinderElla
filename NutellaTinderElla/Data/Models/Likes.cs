@@ -1,57 +1,21 @@
 ﻿using NutellaTinderEllaApi.Data.Models;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace NutellaTinderElla.Data.Models
 {
+    [Table(nameof(Likes))]
+
     public class Likes
     {
+
         [Key]
-        public int Id { get; set; }
-        [StringLength(100)]
-        public string Name { get; set; } = null!;
-        public GenderPreferenceEnum GenderPreference { get; set; }
-
-        public enum GenderPreferenceEnum
-        {
-            Male,
-            Female,
-            Other
-        }
-
-        public GenderEnum Gender { get; set; }
-
-        public enum GenderEnum
-        {
-            Male,
-            Female,
-            Other
-        }
-
-        public SeekingEnum Seeking { get; set; }
-
-        public enum SeekingEnum
-        {
-            Casual,
-            Relationship,
-            Friendship,
-            Networking,
-            ActivityPartner,
-            Experimenting
-        }
-
-
-        [StringLength(255)]
-        public string Bio { get; set; } = null!;
-        [StringLength(50)]
-        public string Email { get; set; } = null!;
-        [StringLength(50)]
-        public string PhoneNumber { get; set; } = null!;
-
-        [StringLength(255)]
-        public string Picture { get; set; } = null!;
-        public int Age { get; set; }
-
-        public ICollection<CurrentUser>? CurrentUser { get; set; }
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int LikeId { get; set; }
+        public int UserId { get; set; }
+        public CurrentUser? LoggedInUser { get; set; }
+        public int LikedUserId { get; set; }
+        public CurrentUser? LikedUser { get; set; }
 
     }
 }

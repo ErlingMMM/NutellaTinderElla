@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using NutellaTinderEllaApi.Data;
 
@@ -11,9 +12,11 @@ using NutellaTinderEllaApi.Data;
 namespace NutellaTinderElla.Migrations
 {
     [DbContext(typeof(TinderDbContext))]
-    partial class TinderDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240306092344_TinderEF")]
+    partial class TinderEF
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

@@ -1,5 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using NutellaTinderElla.Data.Models;
 using NutellaTinderEllaApi.Data.Models;
+
 
 namespace NutellaTinderEllaApi.Data
 {
@@ -10,11 +12,10 @@ namespace NutellaTinderEllaApi.Data
         }
 
         //Tables to be made when migration
-        public DbSet<Movie> Movies { get; set; }
-        public DbSet<Character> Characters { get; set; }
-        public DbSet<Franchise> Franchises { get; set; }
-
         public DbSet<CurrentUser> CurrentUser { get; set; }
+        public DbSet<Likes> Likes { get; set; }
+
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer("Data Source=N-NO-01-01-6434\\SQLEXPRESS; Initial Catalog=TinderEF; Integrated Security= true; Trust Server Certificate= true;");
@@ -23,11 +24,6 @@ namespace NutellaTinderEllaApi.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            //Franchises
-            modelBuilder.Entity<Franchise>().HasData(
-                new Franchise { Id = 1, Name = "The Twilight Saga", Description = "The Twilight Saga is a series of romantic fantasy novels and films that chronicle the love story between a teenage girl named Becca Crane and a vampire named Edward Sullen, set against a backdrop of supernatural creatures and a love triangle with a werewolf named Jacob White." },
-                new Franchise { Id = 2, Name = "The Hunger Games", Description = "The Hunger Games is a dystopian science fiction series that follows the courageous journey of Kantmiss Evershot as she becomes an unexpected symbol of rebellion in a brutal society where children are forced to fight to the death in a televised spectacle." },
-                new Franchise { Id = 3, Name = "Scream", Description = "'Scream' is a horror film franchise that cleverly deconstructs and pays homage to the conventions of the slasher genre while keeping audiences on the edge of their seats with its iconic Ghostface killer and suspenseful storytelling." });
 
             modelBuilder.Entity<CurrentUser>().HasData(
                 new CurrentUser
@@ -42,45 +38,157 @@ namespace NutellaTinderEllaApi.Data
                     Seeking = 0,
                     PhoneNumber = "555-123-4567",
                     Picture = "emily_profile_picture.jpg"
-                });
+                },
 
 
-            //Movies
-            modelBuilder.Entity<Movie>().HasOne(m => m.Franchise).WithMany(f => f.Movies).HasForeignKey(m => m.FranchiseId).OnDelete(DeleteBehavior.SetNull);
 
-            modelBuilder.Entity<Movie>().HasData(
-                new Movie { Id = 1, Title = "Vampires Suck", Genre = "Comedy, Fantasy, Parody", ReleaseYear = "2010", Director = "Jason Friedberg", Picture = "https://prod-ripcut-delivery.disney-plus.net/v1/variant/disney/6C91AACD4A3AD8A7594BDB731F42EB2F78AA5472ECFB6517613D68FCCA146B9F/scale?width=1200&aspectRatio=1.78&format=jpeg", Trailer = "https://www.youtube.com/watch?v=Gw1oGbdXzoU", FranchiseId = 1 },
-                new Movie { Id = 2, Title = "The Starving Games", Genre = "Action, Sci-Fi, Parody", ReleaseYear = "2013", Director = "Jason Friedberg", Picture = "https://m.media-amazon.com/images/M/MV5BMTgwOTk2OTY4MV5BMl5BanBnXkFtZTgwMTU5MjE0MDE@._V1_FMjpg_UX1000_.jpg", Trailer = "https://m.media-amazon.com/images/M/MV5BZTM0NjU0OTctZWI2Ny00NjMwLTg1OWQtMjcwNTJmMjVkMDBmXkEyXkFqcGdeQXVyNDgyNzAxMzY@._V1_.jpg", FranchiseId = 2 },
-                new Movie { Id = 3, Title = "Scary Movie", Genre = "Comedy, Parody", ReleaseYear = "2000", Director = "Keenen Ivory Wayans", Picture = "https://i-viaplay-com.akamaized.net/viaplay-prod/227/368/1613846837-a57c63e0114da2586105e974441375b190f88934.jpg?width=400&height=600", Trailer = "https://www.youtube.com/watch?v=HTLPULt0eJ4", FranchiseId = 3 },
-                new Movie { Id = 4, Title = "Scary Movie 2", Genre = "Comedy, Parody", ReleaseYear = "2001", Director = "Keenen Ivory Wayans", Picture = "https://m.media-amazon.com/images/M/MV5BMzQxYjU1OTUtYjRiOC00NDg2LWI4MWUtZGU5YzdkYTcwNTBlXkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_FMjpg_UX1000_.jpg", Trailer = "https://www.youtube.com/watch?v=zCFZUZxBVuI", FranchiseId = 3 },
-                new Movie { Id = 5, Title = "Scary Movie 3", Genre = "Comedy, Parody", ReleaseYear = "2003", Director = "David Zucker", Picture = "https://m.media-amazon.com/images/I/816m+orOPPL._AC_UF894,1000_QL80_.jpg", Trailer = "https://www.youtube.com/watch?v=O21wD8Tzr2k", FranchiseId = 3 });
+                new CurrentUser
+                {
+                    Id = 2,
+                    Name = "John Smith",
+                    Age = 32,
+                    Email = "john.smith@example.com",
+                    Bio = "Tech enthusiast, coffee lover, and avid reader. Seeking meaningful connections and engaging conversations. Let's explore the city together!",
+                    Gender = 0,
+                    GenderPreference = 2,
+                    Seeking = 1,
+                    PhoneNumber = "555-987-6543",
+                    Picture = "john_profile_picture.jpg"
+                },
+new CurrentUser
+{
+    Id = 3,
+    Name = "Olivia Brown",
+    Age = 25,
+    Email = "olivia.brown@example.com",
+    Bio = "Passionate about art, music, and nature. Looking for someone who shares similar interests and enjoys spontaneous adventures.",
+    Gender = 1,
+    GenderPreference = 0,
+    Seeking = 1,
+    PhoneNumber = "555-555-5555",
+    Picture = "olivia_profile_picture.jpg"
+},
+new CurrentUser
+{
+    Id = 4,
+    Name = "Michael Johnson",
+    Age = 30,
+    Email = "michael.johnson@example.com",
+    Bio = "Fitness enthusiast, foodie, and travel addict. Seeking someone to join me on my next hiking trip and explore new culinary delights.",
+    Gender = 0,
+    GenderPreference = 1,
+    Seeking = 1,
+    PhoneNumber = "555-222-3333",
+    Picture = "michael_profile_picture.jpg"
+},
+new CurrentUser
+{
+    Id = 5,
+    Name = "Sophia Martinez",
+    Age = 27,
+    Email = "sophia.martinez@example.com",
+    Bio = "Bookworm, animal lover, and adventure seeker. Looking for someone who values intellectual conversations and enjoys outdoor activities.",
+    Gender = 1,
+    GenderPreference = 0,
+    Seeking = 0,
+    PhoneNumber = "555-777-8888",
+    Picture = "sophia_profile_picture.jpg"
+},
+new CurrentUser
+{
+    Id = 6,
+    Name = "Daniel Wilson",
+    Age = 29,
+    Email = "daniel.wilson@example.com",
+    Bio = "Gamer, movie buff, and pizza enthusiast. Seeking someone to binge-watch Netflix series and share a slice of pizza with.",
+    Gender = 0,
+    GenderPreference = 2,
+    Seeking = 0,
+    PhoneNumber = "555-444-5555",
+    Picture = "daniel_profile_picture.jpg"
+},
+new CurrentUser
+{
+    Id = 7,
+    Name = "Emma Taylor",
+    Age = 26,
+    Email = "emma.taylor@example.com",
+    Bio = "Nature lover, coffee addict, and amateur photographer. Seeking someone who appreciates sunsets, coffee dates, and long walks in the park.",
+    Gender = 1,
+    GenderPreference = 1,
+    Seeking = 1,
+    PhoneNumber = "555-999-1111",
+    Picture = "emma_profile_picture.jpg"
+},
+new CurrentUser
+{
+    Id = 8,
+    Name = "Liam Anderson",
+    Age = 31,
+    Email = "liam.anderson@example.com",
+    Bio = "Tech geek, foodie, and aspiring chef. Looking for someone who enjoys experimenting with new recipes and binge-watching sci-fi movies.",
+    Gender = 0,
+    GenderPreference = 0,
+    Seeking = 0,
+    PhoneNumber = "555-333-2222",
+    Picture = "liam_profile_picture.jpg"
+},
+new CurrentUser
+{
+    Id = 9,
+    Name = "Ava Thomas",
+    Age = 28,
+    Email = "ava.thomas@example.com",
+    Bio = "Music lover, traveler, and coffee connoisseur. Seeking someone who enjoys spontaneous road trips, live music, and lazy Sundays.",
+    Gender = 1,
+    GenderPreference = 2,
+    Seeking = 1,
+    PhoneNumber = "555-666-9999",
+    Picture = "ava_profile_picture.jpg"
+},
+new CurrentUser
+{
+    Id = 10,
+    Name = "Ethan Walker",
+    Age = 29,
+    Email = "ethan.walker@example.com",
+    Bio = "Adventure seeker, adrenaline junkie, and thrill-seeker. Looking for someone who shares a passion for extreme sports and outdoor adventures.",
+    Gender = 0,
+    GenderPreference = 1,
+    Seeking = 1,
+    PhoneNumber = "555-111-7777",
+    Picture = "ethan_profile_picture.jpg"
+},
+new CurrentUser
+{
+    Id = 11,
+    Name = "Isabella Garcia",
+    Age = 26,
+    Email = "isabella.garcia@example.com",
+    Bio = "Art enthusiast, wine lover, and aspiring painter. Seeking someone who appreciates creativity, fine wine, and deep conversations.",
+    Gender = 1,
+    GenderPreference = 0,
+    Seeking = 0,
+    PhoneNumber = "555-888-2222",
+    Picture = "isabella_profile_picture.jpg"
+}
+    );
 
-            //Characters
-            modelBuilder.Entity<Character>().HasData(
-               new Character { Id = 1, FullName = "Becca Crane", Alias = "Becca", Gender = "Female", Picture = "https://images6.fanpop.com/image/polls/1170000/1170146_1358549057630_full.jpg" },
-               new Character { Id = 2, FullName = "Kantmiss Evershot", Alias = "Kantmiss", Gender = "Female", Picture = "https://m.media-amazon.com/images/M/MV5BZTM0NjU0OTctZWI2Ny00NjMwLTg1OWQtMjcwNTJmMjVkMDBmXkEyXkFqcGdeQXVyNDgyNzAxMzY@._V1_.jpg" },
-               new Character { Id = 3, FullName = "Cindy Campbell", Alias = "Cindy", Gender = "Female", Picture = "https://i2-prod.dailystar.co.uk/incoming/article24438061.ece/ALTERNATES/s1200c/0_Scary-Movie-cast-now.jpg" });
-
-            //CharacterMovies
-            modelBuilder.Entity<CharacterMovie>().HasKey(cm => new { cm.CharacterId, cm.MoviesId });
 
 
-            //CharacterMovies
-            modelBuilder.Entity<Character>()
-                .HasMany(left => left.Movies)
-                .WithMany(right => right.Characters)
-                .UsingEntity<CharacterMovie>(
-                    right => right.HasOne(e => e.Movies).WithMany(),
-                    left => left.HasOne(e => e.Characters).WithMany().HasForeignKey(e => e.CharacterId),
-                    join => join.ToTable("CharacterMovie")
-                );
 
-            modelBuilder.Entity<CharacterMovie>().HasData(
-                new CharacterMovie() { CharacterId = 1, MoviesId = 1 },
-                new CharacterMovie() { CharacterId = 2, MoviesId = 2 },
-                new CharacterMovie() { CharacterId = 3, MoviesId = 3 },
-                new CharacterMovie() { CharacterId = 3, MoviesId = 4 },
-                new CharacterMovie() { CharacterId = 3, MoviesId = 5 });
+            modelBuilder.Entity<Likes>()
+     .HasOne(l => l.LoggedInUser)
+     .WithMany()
+     .HasForeignKey(l => l.UserId)
+     .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Likes>()
+                .HasOne(l => l.LikedUser)
+                .WithMany()
+                .HasForeignKey(l => l.LikedUserId)
+                .OnDelete(DeleteBehavior.Restrict);
+
         }
     }
 }
