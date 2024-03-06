@@ -1,11 +1,9 @@
 using Microsoft.OpenApi.Models;
 using NutellaTinderElla.Services.ActiveUser;
-using NutellaTinderEllaApi.Data.Models;
 using NutellaTinderEllaApi.Data;
 using System.Reflection;
 using Microsoft.EntityFrameworkCore;
-using Swashbuckle.AspNetCore.SwaggerGen;
-using AutoMapper;
+
 
 
 namespace NutellaTinderEllaApi

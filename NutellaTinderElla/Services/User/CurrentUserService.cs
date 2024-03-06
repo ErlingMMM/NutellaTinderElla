@@ -20,7 +20,7 @@ namespace NutellaTinderElla.Services.ActiveUser
 
         public async Task<ICollection<CurrentUser>> GetAllAsync()
         {
-            return await _context.CurrentUser.Include(c => c.Likes).ToListAsync();
+            return await _context.CurrentUser.ToListAsync();
         }
 
         public async Task<CurrentUser> GetByIdAsync(int id)

@@ -2,6 +2,7 @@
 {
     public class LikesPutDTO
     {
-        public int Id { get; set; }
+        public List<int> Likes { get; set; }
+
     }
 }

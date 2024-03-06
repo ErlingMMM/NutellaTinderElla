@@ -74,10 +74,7 @@ namespace NutellaTinderElla.Controllers
         [HttpPut("{id}likes")]
         public async Task<IActionResult> PutLikes(int id, LikesPutDTO likedUser)
         {
-            if (id != likedUser.Id)
-            {
-                return BadRequest();
-            }
+
 
             try
             {

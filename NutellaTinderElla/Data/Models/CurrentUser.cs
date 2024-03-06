@@ -1,17 +1,18 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using NutellaTinderElla.Data.Models;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace NutellaTinderEllaApi.Data.Models
 {
-    //Define the structure of the data that will be stored in the database. 
-    [Table(nameof(CurrentUser))]
+    [Table("CurrentUser")]
     public class CurrentUser
     {
         [Key]
         public int Id { get; set; }
+
+        [Required]
         [StringLength(100)]
-        public string Name { get; set; } = null!;
+        public string Name { get; set; }
 
         public int GenderPreference { get; set; }
 
@@ -19,19 +20,24 @@ namespace NutellaTinderEllaApi.Data.Models
 
         public int Seeking { get; set; }
 
+        [Required]
         [StringLength(255)]
-        public string Bio { get; set; } = null!;
-        [StringLength(50)]
-        public string Email { get; set; } = null!;
-        [StringLength(50)]
-        public string PhoneNumber { get; set; } = null!;
+        public string Bio { get; set; }
 
+        [Required]
+        [StringLength(50)]
+        public string Email { get; set; }
+
+        [Required]
+        [StringLength(50)]
+        public string PhoneNumber { get; set; }
+
+        [Required]
         [StringLength(255)]
-        public string Picture { get; set; } = null!;
+        public string Picture { get; set; }
+
         public int Age { get; set; }
 
-        public ICollection<Likes>? Likes { get; set; }
-        public ICollection<Dislikes>? Dislikes { get; set; }
-        public ICollection<Matches>? Matches { get; set; }
+        public List<int> Likes { get; set; }
     }
 }

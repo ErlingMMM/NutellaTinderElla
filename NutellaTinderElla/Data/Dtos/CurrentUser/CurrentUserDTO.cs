@@ -1,5 +1,4 @@
 ﻿
-using NutellaTinderElla.Data.Dtos.Matching;
 
 
 namespace NutellaTinderElla.Data.Dtos.ActiveUser
@@ -25,9 +24,8 @@ namespace NutellaTinderElla.Data.Dtos.ActiveUser
 
         public int Age { get; set; }
 
-        public List<LikesPutDTO>? Likes { get; set; }
-        public List<DislikesDTO>? Dislikes { get; set; }
-        public List<MatchesDTO>? Matches { get; set; }
+        public List<int>? Likes { get; set; }
+
 
     }
 }
