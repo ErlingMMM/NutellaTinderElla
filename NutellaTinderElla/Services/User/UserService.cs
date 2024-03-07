@@ -66,6 +66,21 @@ namespace NutellaTinderElla.Services.ActiveUser
         }
 
 
+
+        public async Task<IEnumerable<int>> GetSwipedUserIdsAsync(int swipingUserId)
+        {
+            // Query the Swipes table to get swiped user IDs for the given user
+            var swipedUserIds = await _context.Swipes
+                .Where(s => s.SwiperId == swipingUserId)
+                .Select(s => s.SwipedUserId)
+                .ToListAsync();
+
+            return swipedUserIds;
+        }
+
+
+
+
         //Helper Methods
         private async Task<bool> UserExistsAsync(int id)
         {

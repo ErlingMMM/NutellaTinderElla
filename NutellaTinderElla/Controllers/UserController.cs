@@ -13,7 +13,7 @@ namespace NutellaTinderElla.Controllers
 
 {
     [ApiController]
-    [Route("api/v1/CurrentUser")]
+    [Route("api/v1/User")]
     [Produces(MediaTypeNames.Application.Json)]
     [ApiConventionType(typeof(DefaultApiConventions))]
 
@@ -68,6 +68,40 @@ namespace NutellaTinderElla.Controllers
             return CreatedAtAction("GetUser",
                 new { id = newUser.Id },
                 _mapper.Map<UserDTO>(newUser));
+        }
+
+
+        /// <summary>
+        /// Get a random user from database for a new swipe. Not yet swiped on by the user. 
+        /// </summary>
+        /// <param name="swipingUserId"></param>
+        /// <returns></returns>
+        [HttpGet("{swipingUserId}/newSwipe")]
+        public async Task<ActionResult<IEnumerable<UserDTO>>> GetUsersNotSwiped(int swipingUserId)
+        {
+            // Get all users from the database
+            var allUsers = await _userService.GetAllAsync();
+
+            // Get the IDs of users already swiped by the given user
+            var swipedUserIds = await _userService.GetSwipedUserIdsAsync(swipingUserId);
+
+            // Filter out users who have already been swiped
+            var usersToDisplay = allUsers.Where(u => !swipedUserIds.Contains(u.Id)).ToList();
+
+            // If there are no users left after filtering, return an empty list
+            if (usersToDisplay.Count == 0)
+            {
+                return Ok(new List<UserDTO>());
+            }
+
+            // Get a random index within the range of filtered users
+            var randomIndex = new Random().Next(0, usersToDisplay.Count);
+
+            // Get the random user profile
+            var randomUser = usersToDisplay[randomIndex];
+
+            // Map the user profile to DTO and return
+            return Ok(_mapper.Map<UserDTO>(randomUser));
         }
 
 
