@@ -41,6 +41,7 @@ namespace NutellaTinderEllaApi
 
             builder.Services.AddScoped<ICurrentUserService, CurrentUserService>();
             builder.Services.AddScoped<ILikeService, LikeService>();
+            builder.Services.AddScoped<IDislikeService, DislikeService>();
 
             // Add automapper
             builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());

@@ -21,6 +21,27 @@ namespace NutellaTinderElla.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("NutellaTinderElla.Data.Models.Dislike", b =>
+                {
+                    b.Property<int>("DislikerId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("DislikedUserId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.HasKey("DislikerId", "DislikedUserId");
+
+                    b.HasIndex("DislikedUserId");
+
+                    b.ToTable("Dislikes");
+                });
+
             modelBuilder.Entity("NutellaTinderElla.Data.Models.Like", b =>
                 {
                     b.Property<int>("LikerId")
@@ -237,6 +258,25 @@ namespace NutellaTinderElla.Migrations
                         });
                 });
 
+            modelBuilder.Entity("NutellaTinderElla.Data.Models.Dislike", b =>
+                {
+                    b.HasOne("NutellaTinderEllaApi.Data.Models.CurrentUser", "DislikedUser")
+                        .WithMany()
+                        .HasForeignKey("DislikedUserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("NutellaTinderEllaApi.Data.Models.CurrentUser", "Disliker")
+                        .WithMany("Dislikes")
+                        .HasForeignKey("DislikerId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("DislikedUser");
+
+                    b.Navigation("Disliker");
+                });
+
             modelBuilder.Entity("NutellaTinderElla.Data.Models.Like", b =>
                 {
                     b.HasOne("NutellaTinderEllaApi.Data.Models.CurrentUser", "LikedUser")
@@ -258,6 +298,8 @@ namespace NutellaTinderElla.Migrations
 
             modelBuilder.Entity("NutellaTinderEllaApi.Data.Models.CurrentUser", b =>
                 {
+                    b.Navigation("Dislikes");
+
                     b.Navigation("Likes");
                 });
 #pragma warning restore 612, 618

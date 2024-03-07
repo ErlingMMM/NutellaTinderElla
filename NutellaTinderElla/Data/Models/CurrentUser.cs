@@ -39,10 +39,14 @@ namespace NutellaTinderEllaApi.Data.Models
         public int Age { get; set; }
 
         public ICollection<Like> Likes { get; set; }
+        public ICollection<Dislike> Dislikes { get; set; }
 
         public CurrentUser()
         {
             Likes = new List<Like>();
+            Dislikes = new List<Dislike>();
+
         }
+
     }
 }

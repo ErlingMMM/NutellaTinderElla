@@ -23,12 +23,14 @@ namespace NutellaTinderElla.Controllers
     {
         private readonly ICurrentUserService _currentUserService;
         private readonly ILikeService _likeService;
+        private readonly IDislikeService _dislikeService;
         private readonly IMapper _mapper;
 
-        public CurrentUserController(ICurrentUserService currentUserService, ILikeService likeService, IMapper mapper)
+        public CurrentUserController(ICurrentUserService currentUserService, ILikeService likeService, IDislikeService dislikeService, IMapper mapper)
         {
             _currentUserService = currentUserService;
             _likeService = likeService;
+            _dislikeService = dislikeService;
             _mapper = mapper;
         }
 
@@ -103,6 +105,50 @@ namespace NutellaTinderElla.Controllers
 
                 // Add the new like to the database
                 await _likeService.AddAsync(like);
+            }
+            catch (EntityNotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
+
+            return NoContent();
+        }
+
+
+        /// <summary>
+        /// Adding liked users for spesific userprofile from database using userprofiles id, expects code 204
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="dislikes"></param>
+        /// <returns></returns>
+        [HttpPut("{id}/dislikes")]
+        public async Task<IActionResult> PutDislikes(int id, DislikesPutDTO dislikedUser)
+        {
+            try
+            {
+                // Retrieve the liker user from the database based on the provided id
+                var disliker = await _currentUserService.GetByIdAsync(id);
+                if (disliker == null)
+                {
+                    return NotFound($"Disliker with id {id} not found");
+                }
+
+                // Retrieve the liked user from the database based on the provided likedUserId
+                var dislikedUserEntity = await _currentUserService.GetByIdAsync(dislikedUser.DislikedUserId);
+                if (dislikedUserEntity == null)
+                {
+                    return NotFound($"Liked user with id {dislikedUser.DislikedUserId} not found");
+                }
+
+                // Create a new Like entity
+                var dislike = new Dislike
+                {
+                    DislikerId = disliker.Id,
+                    DislikedUserId = dislikedUserEntity.Id
+                };
+
+                // Add the new like to the database
+                await _dislikeService.AddAsync(dislike);
             }
             catch (EntityNotFoundException ex)
             {

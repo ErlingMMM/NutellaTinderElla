@@ -14,6 +14,7 @@ namespace NutellaTinderEllaApi.Data
         //Tables to be made when migration
         public DbSet<CurrentUser> CurrentUser { get; set; }
         public DbSet<Like> Likes { get; set; }
+        public DbSet<Dislike> Dislikes { get; set; }
 
 
 
@@ -175,9 +176,6 @@ new CurrentUser
 }
     );
 
-
-
-
             modelBuilder.Entity<Like>()
               .HasKey(l => new { l.LikerId, l.LikedUserId });
 
@@ -191,6 +189,22 @@ new CurrentUser
                 .HasOne(l => l.LikedUser)
                 .WithMany()
                 .HasForeignKey(l => l.LikedUserId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            ///
+            modelBuilder.Entity<Dislike>()
+         .HasKey(d => new { d.DislikerId, d.DislikedUserId });
+
+            modelBuilder.Entity<Dislike>()
+                .HasOne(d => d.Disliker)
+                .WithMany(u => u.Dislikes)
+                .HasForeignKey(d => d.DislikerId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Dislike>()
+                .HasOne(d => d.DislikedUser)
+                .WithMany()
+                .HasForeignKey(d => d.DislikedUserId)
                 .OnDelete(DeleteBehavior.Restrict);
 
 
