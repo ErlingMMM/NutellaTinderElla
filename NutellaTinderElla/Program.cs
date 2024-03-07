@@ -3,8 +3,7 @@ using NutellaTinderElla.Services.ActiveUser;
 using NutellaTinderEllaApi.Data;
 using System.Reflection;
 using Microsoft.EntityFrameworkCore;
-
-
+using NutellaTinderElla.Services.Matching;
 
 namespace NutellaTinderEllaApi
 {
@@ -41,6 +40,8 @@ namespace NutellaTinderEllaApi
             // Add our service
 
             builder.Services.AddScoped<ICurrentUserService, CurrentUserService>();
+            builder.Services.AddScoped<ILikeService, LikeService>();
+
             // Add automapper
             builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
