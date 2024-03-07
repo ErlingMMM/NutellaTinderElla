@@ -2,7 +2,9 @@
 using Microsoft.AspNetCore.Mvc;
 using NutellaTinderElla.Data.Dtos.ActiveUser;
 using NutellaTinderElla.Data.Dtos.Matching;
+using NutellaTinderElla.Data.Models;
 using NutellaTinderElla.Services.ActiveUser;
+using NutellaTinderElla.Services.Matching;
 using NutellaTinderEllaApi.Data.Exceptions;
 using NutellaTinderEllaApi.Data.Models;
 using System.Net.Mime;
@@ -20,11 +22,13 @@ namespace NutellaTinderElla.Controllers
     public class CurrentUserController : ControllerBase
     {
         private readonly ICurrentUserService _currentUserService;
+        private readonly ILikeService _likeService;
         private readonly IMapper _mapper;
 
-        public CurrentUserController(ICurrentUserService currentUserService, IMapper mapper)
+        public CurrentUserController(ICurrentUserService currentUserService, ILikeService likeService, IMapper mapper)
         {
             _currentUserService = currentUserService;
+            _likeService = likeService;
             _mapper = mapper;
         }
 
@@ -76,7 +80,29 @@ namespace NutellaTinderElla.Controllers
         {
             try
             {
-                await _currentUserService.UpdateAsync(_mapper.Map<CurrentUser>(likedUser));
+                // Retrieve the liker user from the database based on the provided id
+                var liker = await _currentUserService.GetByIdAsync(id);
+                if (liker == null)
+                {
+                    return NotFound($"Liker with id {id} not found");
+                }
+
+                // Retrieve the liked user from the database based on the provided likedUserId
+                var likedUserEntity = await _currentUserService.GetByIdAsync(likedUser.LikedUserId);
+                if (likedUserEntity == null)
+                {
+                    return NotFound($"Liked user with id {likedUser.LikedUserId} not found");
+                }
+
+                // Create a new Like entity
+                var like = new Like
+                {
+                    LikerId = liker.Id,
+                    LikedUserId = likedUserEntity.Id
+                };
+
+                // Add the new like to the database
+                await _likeService.AddAsync(like);
             }
             catch (EntityNotFoundException ex)
             {
@@ -85,7 +111,6 @@ namespace NutellaTinderElla.Controllers
 
             return NoContent();
         }
-
 
 
     }
