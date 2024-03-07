@@ -45,8 +45,8 @@ namespace NutellaTinderElla.Controllers
         {
             try
             {
-                var currentUser = await _userService.GetByIdAsync(id);
-                return Ok(currentUser);
+                var user = await _userService.GetByIdAsync(id);
+                return Ok(user);
             }
             catch (EntityNotFoundException ex)
             {
@@ -85,8 +85,11 @@ namespace NutellaTinderElla.Controllers
             // Get the IDs of users already swiped by the given user
             var swipedUserIds = await _userService.GetSwipedUserIdsAsync(swipingUserId);
 
+            var swipingUser = await _userService.GetByIdAsync(swipingUserId);
+
+
             // Filter out users who have already been swiped and the users own profile
-            var usersToDisplay = allUsers.Where(u => u.Id != swipingUserId && !swipedUserIds.Contains(u.Id)).ToList();
+            var usersToDisplay = allUsers.Where(u => u.Id != swipingUserId && u.Seeking == swipingUser.Seeking && !swipedUserIds.Contains(u.Id)).ToList();
 
             // If there are no users left after filtering, return an empty list
             if (usersToDisplay.Count == 0)
