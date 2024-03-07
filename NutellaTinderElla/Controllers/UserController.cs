@@ -88,8 +88,26 @@ namespace NutellaTinderElla.Controllers
             var swipingUser = await _userService.GetByIdAsync(swipingUserId);
 
 
-            // Filter out users who have already been swiped and the users own profile
-            var usersToDisplay = allUsers.Where(u => u.Id != swipingUserId && u.Seeking == swipingUser.Seeking && !swipedUserIds.Contains(u.Id)).ToList();
+            var usersToDisplay = allUsers.Where(u =>
+                // Exclude the swiping user's own profile
+                u.Id != swipingUserId &&
+
+                // Match users with the same seeking preference
+                u.Seeking == swipingUser.Seeking &&
+
+                // Match users based on gender preferences
+                (
+                    // Match users with compatible gender preferences
+                    (u.Gender == swipingUser.GenderPreference && swipingUser.Gender == u.GenderPreference) ||
+                    (u.GenderPreference == 2 && swipingUser.GenderPreference == 2) ||
+                    (swipingUser.GenderPreference == 2 && u.GenderPreference == swipingUser.Gender) ||
+                    (u.GenderPreference == 2 && swipingUser.GenderPreference == u.Gender)
+                ) &&
+
+                // Exclude users who have already been swiped by the swiping user
+                !swipedUserIds.Contains(u.Id)
+            ).ToList();
+
 
             // If there are no users left after filtering, return an empty list
             if (usersToDisplay.Count == 0)
