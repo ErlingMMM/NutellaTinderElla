@@ -11,7 +11,7 @@ using NutellaTinderEllaApi.Data;
 namespace NutellaTinderElla.Migrations
 {
     [DbContext(typeof(TinderDbContext))]
-    [Migration("20240307074333_TinderEF")]
+    [Migration("20240307082033_TinderEF")]
     partial class TinderEF
     {
         /// <inheritdoc />
@@ -33,7 +33,10 @@ namespace NutellaTinderElla.Migrations
                         .HasColumnType("int");
 
                     b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.HasKey("LikerId", "LikedUserId");
 
