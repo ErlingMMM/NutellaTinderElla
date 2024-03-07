@@ -85,8 +85,8 @@ namespace NutellaTinderElla.Controllers
             // Get the IDs of users already swiped by the given user
             var swipedUserIds = await _userService.GetSwipedUserIdsAsync(swipingUserId);
 
-            // Filter out users who have already been swiped
-            var usersToDisplay = allUsers.Where(u => !swipedUserIds.Contains(u.Id)).ToList();
+            // Filter out users who have already been swiped and the users own profile
+            var usersToDisplay = allUsers.Where(u => u.Id != swipingUserId && !swipedUserIds.Contains(u.Id)).ToList();
 
             // If there are no users left after filtering, return an empty list
             if (usersToDisplay.Count == 0)
