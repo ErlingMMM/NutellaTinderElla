@@ -51,6 +51,6 @@ namespace NutellaTinderElla.Data.Models
         public string Picture { get; set; } = null!;
         public int Age { get; set; }
 
-        public ICollection<CurrentUser>? CurrentUser { get; set; }
+        public ICollection<User>? User { get; set; }
     }
 }

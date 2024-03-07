@@ -19,18 +19,18 @@ namespace NutellaTinderElla.Controllers
 
     //These files define the API endpoints, their routes, and the actions to be taken for each endpoint.
     //Controllers interact with services to perform business logic.
-    public class CurrentUserController : ControllerBase
+    public class UserController : ControllerBase
     {
-        private readonly ICurrentUserService _currentUserService;
+        private readonly IUserService _userService;
         private readonly ILikeService _likeService;
-        private readonly IDislikeService _dislikeService;
+        private readonly ISwipeService _swipeService;
         private readonly IMapper _mapper;
 
-        public CurrentUserController(ICurrentUserService currentUserService, ILikeService likeService, IDislikeService dislikeService, IMapper mapper)
+        public UserController(IUserService userService, ILikeService likeService, ISwipeService dislikeService, IMapper mapper)
         {
-            _currentUserService = currentUserService;
+            _userService = userService;
             _likeService = likeService;
-            _dislikeService = dislikeService;
+            _swipeService = dislikeService;
             _mapper = mapper;
         }
 
@@ -41,11 +41,11 @@ namespace NutellaTinderElla.Controllers
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpGet("{id}")]
-        public async Task<ActionResult<CurrentUserDTO>> GetUser(int id)
+        public async Task<ActionResult<UserDTO>> GetUser(int id)
         {
             try
             {
-                var currentUser = await _currentUserService.GetByIdAsync(id);
+                var currentUser = await _userService.GetByIdAsync(id);
                 return Ok(currentUser);
             }
             catch (EntityNotFoundException ex)
@@ -61,13 +61,13 @@ namespace NutellaTinderElla.Controllers
         /// <param name="newUser"></param>
         /// <returns></returns>
         [HttpPost]
-        public async Task<ActionResult<CurrentUserDTO>> PostCurrentUser(CurrentUserPostDTO currentUser)
+        public async Task<ActionResult<UserDTO>> PostUser(UserPostDTO currentUser)
         {
-            var newUser = await _currentUserService.AddAsync(_mapper.Map<CurrentUser>(currentUser));
+            var newUser = await _userService.AddAsync(_mapper.Map<User>(currentUser));
 
             return CreatedAtAction("GetUser",
                 new { id = newUser.Id },
-                _mapper.Map<CurrentUserDTO>(newUser));
+                _mapper.Map<UserDTO>(newUser));
         }
 
 
@@ -83,14 +83,14 @@ namespace NutellaTinderElla.Controllers
             try
             {
                 // Retrieve the liker user from the database based on the provided id
-                var liker = await _currentUserService.GetByIdAsync(id);
+                var liker = await _userService.GetByIdAsync(id);
                 if (liker == null)
                 {
                     return NotFound($"Liker with id {id} not found");
                 }
 
                 // Retrieve the liked user from the database based on the provided likedUserId
-                var likedUserEntity = await _currentUserService.GetByIdAsync(likedUser.LikedUserId);
+                var likedUserEntity = await _userService.GetByIdAsync(likedUser.LikedUserId);
                 if (likedUserEntity == null)
                 {
                     return NotFound($"Liked user with id {likedUser.LikedUserId} not found");
@@ -116,39 +116,39 @@ namespace NutellaTinderElla.Controllers
 
 
         /// <summary>
-        /// Adding liked users for spesific userprofile from database using userprofiles id, expects code 204
+        /// Adding swiped users for spesific userprofile from database using userprofiles id, expects code 204
         /// </summary>
         /// <param name="id"></param>
-        /// <param name="dislikes"></param>
+        /// <param name="swipes"></param>
         /// <returns></returns>
-        [HttpPut("{id}/dislikes")]
-        public async Task<IActionResult> PutDislikes(int id, DislikesPutDTO dislikedUser)
+        [HttpPut("{id}/swipes")]
+        public async Task<IActionResult> PutSwipes(int id, SwipePutDTO swipedUser)
         {
             try
             {
-                // Retrieve the liker user from the database based on the provided id
-                var disliker = await _currentUserService.GetByIdAsync(id);
-                if (disliker == null)
+                // Retrieve the swiped user from the database based on the provided id
+                var swiper = await _userService.GetByIdAsync(id);
+                if (swiper == null)
                 {
-                    return NotFound($"Disliker with id {id} not found");
+                    return NotFound($"Swiper with id {id} not found");
                 }
 
-                // Retrieve the liked user from the database based on the provided likedUserId
-                var dislikedUserEntity = await _currentUserService.GetByIdAsync(dislikedUser.DislikedUserId);
-                if (dislikedUserEntity == null)
+                // Retrieve the swiped user from the database based on the provided likedUserId
+                var swipedUserEntity = await _userService.GetByIdAsync(swipedUser.SwipedUserId);
+                if (swipedUserEntity == null)
                 {
-                    return NotFound($"Liked user with id {dislikedUser.DislikedUserId} not found");
+                    return NotFound($"Swiped user with id {swipedUser.SwipedUserId} not found");
                 }
 
-                // Create a new Like entity
-                var dislike = new Dislike
+                // Create a new swipe entity
+                var swipe = new Swipes
                 {
-                    DislikerId = disliker.Id,
-                    DislikedUserId = dislikedUserEntity.Id
+                    SwiperId = swiper.Id,
+                    SwipedUserId = swipedUserEntity.Id
                 };
 
-                // Add the new like to the database
-                await _dislikeService.AddAsync(dislike);
+                // Add the new swipe to the database
+                await _swipeService.AddAsync(swipe);
             }
             catch (EntityNotFoundException ex)
             {

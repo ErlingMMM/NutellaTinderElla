@@ -12,9 +12,9 @@ namespace NutellaTinderEllaApi.Data
         }
 
         //Tables to be made when migration
-        public DbSet<CurrentUser> CurrentUser { get; set; }
+        public DbSet<User> User { get; set; }
         public DbSet<Like> Likes { get; set; }
-        public DbSet<Dislike> Dislikes { get; set; }
+        public DbSet<Swipes> Swipes { get; set; }
 
 
 
@@ -27,8 +27,8 @@ namespace NutellaTinderEllaApi.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
 
-            modelBuilder.Entity<CurrentUser>().HasData(
-                new CurrentUser
+            modelBuilder.Entity<User>().HasData(
+                new User
                 {
                     Id = 1,
                     Name = "Emily Johnson",
@@ -44,7 +44,7 @@ namespace NutellaTinderEllaApi.Data
 
 
 
-                new CurrentUser
+                new User
                 {
                     Id = 2,
                     Name = "John Smith",
@@ -57,7 +57,7 @@ namespace NutellaTinderEllaApi.Data
                     PhoneNumber = "555-987-6543",
                     Picture = "john_profile_picture.jpg"
                 },
-new CurrentUser
+new User
 {
     Id = 3,
     Name = "Olivia Brown",
@@ -70,7 +70,7 @@ new CurrentUser
     PhoneNumber = "555-555-5555",
     Picture = "olivia_profile_picture.jpg"
 },
-new CurrentUser
+new User
 {
     Id = 4,
     Name = "Michael Johnson",
@@ -83,7 +83,7 @@ new CurrentUser
     PhoneNumber = "555-222-3333",
     Picture = "michael_profile_picture.jpg"
 },
-new CurrentUser
+new User
 {
     Id = 5,
     Name = "Sophia Martinez",
@@ -96,7 +96,7 @@ new CurrentUser
     PhoneNumber = "555-777-8888",
     Picture = "sophia_profile_picture.jpg"
 },
-new CurrentUser
+new User
 {
     Id = 6,
     Name = "Daniel Wilson",
@@ -109,7 +109,7 @@ new CurrentUser
     PhoneNumber = "555-444-5555",
     Picture = "daniel_profile_picture.jpg"
 },
-new CurrentUser
+new User
 {
     Id = 7,
     Name = "Emma Taylor",
@@ -122,7 +122,7 @@ new CurrentUser
     PhoneNumber = "555-999-1111",
     Picture = "emma_profile_picture.jpg"
 },
-new CurrentUser
+new User
 {
     Id = 8,
     Name = "Liam Anderson",
@@ -135,7 +135,7 @@ new CurrentUser
     PhoneNumber = "555-333-2222",
     Picture = "liam_profile_picture.jpg"
 },
-new CurrentUser
+new User
 {
     Id = 9,
     Name = "Ava Thomas",
@@ -148,7 +148,7 @@ new CurrentUser
     PhoneNumber = "555-666-9999",
     Picture = "ava_profile_picture.jpg"
 },
-new CurrentUser
+new User
 {
     Id = 10,
     Name = "Ethan Walker",
@@ -161,7 +161,7 @@ new CurrentUser
     PhoneNumber = "555-111-7777",
     Picture = "ethan_profile_picture.jpg"
 },
-new CurrentUser
+new User
 {
     Id = 11,
     Name = "Isabella Garcia",
@@ -192,19 +192,19 @@ new CurrentUser
                 .OnDelete(DeleteBehavior.Restrict);
 
             ///
-            modelBuilder.Entity<Dislike>()
-         .HasKey(d => new { d.DislikerId, d.DislikedUserId });
+            modelBuilder.Entity<Swipes>()
+         .HasKey(d => new { d.SwiperId, d.SwipedUserId });
 
-            modelBuilder.Entity<Dislike>()
-                .HasOne(d => d.Disliker)
-                .WithMany(u => u.Dislikes)
-                .HasForeignKey(d => d.DislikerId)
+            modelBuilder.Entity<Swipes>()
+                .HasOne(d => d.Swiper)
+                .WithMany(u => u.Swipes)
+                .HasForeignKey(d => d.SwiperId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            modelBuilder.Entity<Dislike>()
-                .HasOne(d => d.DislikedUser)
+            modelBuilder.Entity<Swipes>()
+                .HasOne(d => d.SwipedUser)
                 .WithMany()
-                .HasForeignKey(d => d.DislikedUserId)
+                .HasForeignKey(d => d.SwipedUserId)
                 .OnDelete(DeleteBehavior.Restrict);
 
 

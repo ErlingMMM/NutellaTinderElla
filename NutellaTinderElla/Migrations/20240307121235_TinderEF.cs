@@ -34,32 +34,6 @@ namespace NutellaTinderElla.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Dislikes",
-                columns: table => new
-                {
-                    DislikerId = table.Column<int>(type: "int", nullable: false),
-                    DislikedUserId = table.Column<int>(type: "int", nullable: false),
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1")
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Dislikes", x => new { x.DislikerId, x.DislikedUserId });
-                    table.ForeignKey(
-                        name: "FK_Dislikes_CurrentUser_DislikedUserId",
-                        column: x => x.DislikedUserId,
-                        principalTable: "CurrentUser",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Dislikes_CurrentUser_DislikerId",
-                        column: x => x.DislikerId,
-                        principalTable: "CurrentUser",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Likes",
                 columns: table => new
                 {
@@ -85,6 +59,32 @@ namespace NutellaTinderElla.Migrations
                         onDelete: ReferentialAction.Restrict);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Swipes",
+                columns: table => new
+                {
+                    SwiperId = table.Column<int>(type: "int", nullable: false),
+                    SwipedUserId = table.Column<int>(type: "int", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Swipes", x => new { x.SwiperId, x.SwipedUserId });
+                    table.ForeignKey(
+                        name: "FK_Swipes_CurrentUser_SwipedUserId",
+                        column: x => x.SwipedUserId,
+                        principalTable: "CurrentUser",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Swipes_CurrentUser_SwiperId",
+                        column: x => x.SwiperId,
+                        principalTable: "CurrentUser",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
             migrationBuilder.InsertData(
                 table: "CurrentUser",
                 columns: new[] { "Id", "Age", "Bio", "Email", "Gender", "GenderPreference", "Name", "PhoneNumber", "Picture", "Seeking" },
@@ -104,24 +104,24 @@ namespace NutellaTinderElla.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Dislikes_DislikedUserId",
-                table: "Dislikes",
-                column: "DislikedUserId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Likes_LikedUserId",
                 table: "Likes",
                 column: "LikedUserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Swipes_SwipedUserId",
+                table: "Swipes",
+                column: "SwipedUserId");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Dislikes");
+                name: "Likes");
 
             migrationBuilder.DropTable(
-                name: "Likes");
+                name: "Swipes");
 
             migrationBuilder.DropTable(
                 name: "CurrentUser");

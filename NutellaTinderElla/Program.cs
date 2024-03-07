@@ -39,14 +39,14 @@ namespace NutellaTinderEllaApi
             options.UseSqlServer(builder.Configuration.GetConnectionString("Default")));
             // Add our service
 
-            builder.Services.AddScoped<ICurrentUserService, CurrentUserService>();
+            builder.Services.AddScoped<IUserService, UserService>();
             builder.Services.AddScoped<ILikeService, LikeService>();
-            builder.Services.AddScoped<IDislikeService, DislikeService>();
+            builder.Services.AddScoped<ISwipeService, SwipeService>();
 
             // Add automapper
             builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
-            builder.Services.AddAutoMapper(typeof(CurrentUserService));
+            builder.Services.AddAutoMapper(typeof(UserService));
 
 
             var app = builder.Build();

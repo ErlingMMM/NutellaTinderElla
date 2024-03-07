@@ -4,7 +4,7 @@ using NutellaTinderEllaApi.Services;
 namespace NutellaTinderElla.Services.ActiveUser
 
 {
-    public interface ICurrentUserService : ICrudService<CurrentUser, int>
+    public interface IUserService : ICrudService<User, int>
     {
 
     }

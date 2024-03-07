@@ -6,23 +6,23 @@ using NutellaTinderElla.Data.Models;
 
 namespace NutellaTinderElla.Services.Matching
 {
-    public class DislikeService : IDislikeService
+    public class SwipeService : ISwipeService
     {
         private readonly TinderDbContext _context;
 
-        public DislikeService(TinderDbContext context)
+        public SwipeService(TinderDbContext context)
         {
             _context = context;
         }
 
-        public async Task<ICollection<Dislike>> GetAllAsync()
+        public async Task<ICollection<Swipes>> GetAllAsync()
         {
-            return await _context.Dislikes.ToListAsync();
+            return await _context.Swipes.ToListAsync();
         }
 
-        public async Task<Dislike> GetByIdAsync(int id)
+        public async Task<Swipes> GetByIdAsync(int id)
         {
-            var curUs = await _context.Dislikes.Where(c => c.Id == id).FirstAsync();
+            var curUs = await _context.Swipes.Where(c => c.Id == id).FirstAsync();
 
             if (curUs is null)
                 throw new EntityNotFoundException(nameof(curUs), id);
@@ -30,30 +30,30 @@ namespace NutellaTinderElla.Services.Matching
             return curUs;
         }
 
-        public async Task<Dislike> AddAsync(Dislike obj)
+        public async Task<Swipes> AddAsync(Swipes obj)
         {
-            await _context.Dislikes.AddAsync(obj);
+            await _context.Swipes.AddAsync(obj);
             await _context.SaveChangesAsync();
             return obj;
         }
 
         public async Task DeleteByIdAsync(int id)
         {
-            if (!await DislikeExistsAsync(id))
-                throw new EntityNotFoundException(nameof(Dislike), id);
+            if (!await SwipeExistsAsync(id))
+                throw new EntityNotFoundException(nameof(Swipes), id);
 
-            var curUs = await _context.Dislikes
+            var curUs = await _context.Swipes
                 .Where(c => c.Id == id)
                 .FirstAsync();
 
-            _context.Dislikes.Remove(curUs);
+            _context.Swipes.Remove(curUs);
             await _context.SaveChangesAsync();
         }
 
-        public async Task<Dislike> UpdateAsync(Dislike obj)
+        public async Task<Swipes> UpdateAsync(Swipes obj)
         {
-            if (!await DislikeExistsAsync(obj.Id))
-                throw new EntityNotFoundException(nameof(Dislike), obj.Id);
+            if (!await SwipeExistsAsync(obj.Id))
+                throw new EntityNotFoundException(nameof(Swipes), obj.Id);
 
             _context.Entry(obj).State = EntityState.Modified;
             await _context.SaveChangesAsync();
@@ -62,9 +62,9 @@ namespace NutellaTinderElla.Services.Matching
         }
 
         // Helper Methods
-        private async Task<bool> DislikeExistsAsync(int id)
+        private async Task<bool> SwipeExistsAsync(int id)
         {
-            return await _context.Dislikes.AnyAsync(c => c.Id == id);
+            return await _context.Swipes.AnyAsync(c => c.Id == id);
         }
     }
 }

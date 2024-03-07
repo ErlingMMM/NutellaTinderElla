@@ -9,10 +9,10 @@ namespace NutellaTinderEllaApi.Mappers
     {
         public UserProfile()
         {
-            CreateMap<CurrentUserPostDTO, CurrentUser>().ReverseMap();
-            CreateMap<CurrentUser, CurrentUserDTO>().ReverseMap();
-            CreateMap<LikesPutDTO, CurrentUser>().ReverseMap();
-            CreateMap<DislikesPutDTO, CurrentUser>().ReverseMap();
+            CreateMap<UserPostDTO, User>().ReverseMap();
+            CreateMap<User, UserDTO>().ReverseMap();
+            CreateMap<LikesPutDTO, User>().ReverseMap();
+            CreateMap<SwipePutDTO, User>().ReverseMap();
 
         }
     }

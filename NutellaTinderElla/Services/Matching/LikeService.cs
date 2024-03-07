@@ -40,21 +40,21 @@ namespace NutellaTinderElla.Services.Matching
         }
         public async Task DeleteByIdAsync(int id)
         {
-            if (!await CurrentUserExistsAsync(id))
+            if (!await UserExistsAsync(id))
                 throw new EntityNotFoundException(nameof(Like), id);
 
-            var curUs = await _context.CurrentUser
+            var curUs = await _context.User
                 .Where(c => c.Id == id)
                 .FirstAsync();
 
 
 
-            _context.CurrentUser.Remove(curUs);
+            _context.User.Remove(curUs);
             await _context.SaveChangesAsync();
         }
         public async Task<Like> UpdateAsync(Like obj)
         {
-            if (!await CurrentUserExistsAsync(obj.Id))
+            if (!await UserExistsAsync(obj.Id))
                 throw new EntityNotFoundException(nameof(Like), obj.Id);
 
 
@@ -66,7 +66,7 @@ namespace NutellaTinderElla.Services.Matching
 
 
         //Helper Methods
-        private async Task<bool> CurrentUserExistsAsync(int id)
+        private async Task<bool> UserExistsAsync(int id)
         {
             return await _context.Likes.AnyAsync(c => c.Id == id);
         }

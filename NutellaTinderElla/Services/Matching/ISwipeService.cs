@@ -5,7 +5,7 @@ using NutellaTinderEllaApi.Services;
 
 namespace NutellaTinderElla.Services.Matching
 {
-    public interface IDislikeService : ICrudService<Dislike, int>
+    public interface ISwipeService : ICrudService<Swipes, int>
     {
 
     }

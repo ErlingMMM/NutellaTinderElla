@@ -11,7 +11,7 @@ using NutellaTinderEllaApi.Data;
 namespace NutellaTinderElla.Migrations
 {
     [DbContext(typeof(TinderDbContext))]
-    [Migration("20240307091419_TinderEF")]
+    [Migration("20240307121235_TinderEF")]
     partial class TinderEF
     {
         /// <inheritdoc />
@@ -23,27 +23,6 @@ namespace NutellaTinderElla.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-
-            modelBuilder.Entity("NutellaTinderElla.Data.Models.Dislike", b =>
-                {
-                    b.Property<int>("DislikerId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("DislikedUserId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.HasKey("DislikerId", "DislikedUserId");
-
-                    b.HasIndex("DislikedUserId");
-
-                    b.ToTable("Dislikes");
-                });
 
             modelBuilder.Entity("NutellaTinderElla.Data.Models.Like", b =>
                 {
@@ -66,7 +45,28 @@ namespace NutellaTinderElla.Migrations
                     b.ToTable("Likes");
                 });
 
-            modelBuilder.Entity("NutellaTinderEllaApi.Data.Models.CurrentUser", b =>
+            modelBuilder.Entity("NutellaTinderElla.Data.Models.Swipes", b =>
+                {
+                    b.Property<int>("SwiperId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SwipedUserId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.HasKey("SwiperId", "SwipedUserId");
+
+                    b.HasIndex("SwipedUserId");
+
+                    b.ToTable("Swipes");
+                });
+
+            modelBuilder.Entity("NutellaTinderEllaApi.Data.Models.User", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -261,34 +261,15 @@ namespace NutellaTinderElla.Migrations
                         });
                 });
 
-            modelBuilder.Entity("NutellaTinderElla.Data.Models.Dislike", b =>
-                {
-                    b.HasOne("NutellaTinderEllaApi.Data.Models.CurrentUser", "DislikedUser")
-                        .WithMany()
-                        .HasForeignKey("DislikedUserId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("NutellaTinderEllaApi.Data.Models.CurrentUser", "Disliker")
-                        .WithMany("Dislikes")
-                        .HasForeignKey("DislikerId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("DislikedUser");
-
-                    b.Navigation("Disliker");
-                });
-
             modelBuilder.Entity("NutellaTinderElla.Data.Models.Like", b =>
                 {
-                    b.HasOne("NutellaTinderEllaApi.Data.Models.CurrentUser", "LikedUser")
+                    b.HasOne("NutellaTinderEllaApi.Data.Models.User", "LikedUser")
                         .WithMany()
                         .HasForeignKey("LikedUserId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("NutellaTinderEllaApi.Data.Models.CurrentUser", "Liker")
+                    b.HasOne("NutellaTinderEllaApi.Data.Models.User", "Liker")
                         .WithMany("Likes")
                         .HasForeignKey("LikerId")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -299,11 +280,30 @@ namespace NutellaTinderElla.Migrations
                     b.Navigation("Liker");
                 });
 
-            modelBuilder.Entity("NutellaTinderEllaApi.Data.Models.CurrentUser", b =>
+            modelBuilder.Entity("NutellaTinderElla.Data.Models.Swipes", b =>
                 {
-                    b.Navigation("Dislikes");
+                    b.HasOne("NutellaTinderEllaApi.Data.Models.User", "SwipedUser")
+                        .WithMany()
+                        .HasForeignKey("SwipedUserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
+                    b.HasOne("NutellaTinderEllaApi.Data.Models.User", "Swiper")
+                        .WithMany("Swipes")
+                        .HasForeignKey("SwiperId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("SwipedUser");
+
+                    b.Navigation("Swiper");
+                });
+
+            modelBuilder.Entity("NutellaTinderEllaApi.Data.Models.User", b =>
+                {
                     b.Navigation("Likes");
+
+                    b.Navigation("Swipes");
                 });
 #pragma warning restore 612, 618
         }
