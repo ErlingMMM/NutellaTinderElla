@@ -134,8 +134,8 @@ namespace NutellaTinderElla.Controllers
         /// <param name="id"></param>
         /// <param name="likes"></param>
         /// <returns></returns>
-        [HttpPut("{id}/likes")]
-        public async Task<IActionResult> PutLikes(int id, LikesPutDTO likedUser)
+        [HttpPost("{id}/likes")]
+        public async Task<IActionResult> PostLikes(int id, LikesPostDTO likedUser)
         {
             try
             {
@@ -197,8 +197,8 @@ namespace NutellaTinderElla.Controllers
         /// <param name="id"></param>
         /// <param name="swipes"></param>
         /// <returns></returns>
-        [HttpPut("{id}/swipes")]
-        public async Task<IActionResult> PutSwipes(int id, SwipePutDTO swipedUser)
+        [HttpPost("{id}/swipes")]
+        public async Task<IActionResult> PostSwipes(int id, SwipePostDTO swipedUser)
         {
             try
             {

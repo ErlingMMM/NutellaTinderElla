@@ -24,7 +24,6 @@ namespace NutellaTinderElla.Data.Dtos.ActiveUser
 
         public int Age { get; set; }
 
-        public List<int>? Likes { get; set; }
 
 
     }
