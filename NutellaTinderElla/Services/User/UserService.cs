@@ -69,13 +69,22 @@ namespace NutellaTinderElla.Services.ActiveUser
 
         public async Task<IEnumerable<int>> GetUsersMatchByUsersIdsAsync(int id)
         {
-            var rowsByUsersId = await _context.Matches
-                .Where(s => s.MacherId == id)
-                .Select(s => s.MatchedUserId)
+            var matchesAsMatcher = await _context.Matches
+                .Where(m => m.MacherId == id)
+                .Select(m => m.MatchedUserId)
                 .ToListAsync();
 
-            return rowsByUsersId;
+            var matchesAsMatchedUser = await _context.Matches
+                .Where(m => m.MatchedUserId == id)
+                .Select(m => m.MacherId)
+                .ToListAsync();
+
+            // Combine and return all matched user IDs
+            var allMatches = matchesAsMatcher.Union(matchesAsMatchedUser);
+
+            return allMatches;
         }
+
 
         public async Task<IEnumerable<int>> GetSwipedUserIdsAsync(int swipingUserId)
         {
