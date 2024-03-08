@@ -137,12 +137,16 @@ namespace NutellaTinderElla.Controllers
         {
             try
             {
+
                 // Retrieve the liker user from the database based on the provided id
                 var liker = await _userService.GetByIdAsync(id);
                 if (liker == null)
                 {
                     return NotFound($"Liker with id {id} not found");
                 }
+
+                var allLikes = await _likeService.GetAllAsync();
+
 
                 // Retrieve the liked user from the database based on the provided likedUserId
                 var likedUserEntity = await _userService.GetByIdAsync(likedUser.LikedUserId);
@@ -151,15 +155,22 @@ namespace NutellaTinderElla.Controllers
                     return NotFound($"Liked user with id {likedUser.LikedUserId} not found");
                 }
 
-                // Create a new Like entity
                 var like = new Like
                 {
                     LikerId = liker.Id,
                     LikedUserId = likedUserEntity.Id
                 };
 
-                // Add the new like to the database
+
                 await _likeService.AddAsync(like);
+
+
+                var hasMatch = await _likeService.HasMatchAsync(liker.Id, likedUserEntity.Id);
+                if (hasMatch)
+                {
+                    return Ok("Congratulations! You have a match!");
+                }
+
             }
             catch (EntityNotFoundException ex)
             {

@@ -5,6 +5,7 @@ namespace NutellaTinderElla.Services.Matching
 {
     public interface ILikeService : ICrudService<Like, int>
     {
+        Task<bool> HasMatchAsync(int likerId, int likedUser);
 
     }
 }

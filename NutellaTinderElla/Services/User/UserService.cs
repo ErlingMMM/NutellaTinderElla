@@ -79,8 +79,6 @@ namespace NutellaTinderElla.Services.ActiveUser
         }
 
 
-
-
         //Helper Methods
         private async Task<bool> UserExistsAsync(int id)
         {
