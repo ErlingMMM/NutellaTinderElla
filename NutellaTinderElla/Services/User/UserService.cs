@@ -67,6 +67,16 @@ namespace NutellaTinderElla.Services.ActiveUser
 
 
 
+        public async Task<IEnumerable<int>> GetUsersMatchByUsersIdsAsync(int id)
+        {
+            var rowsByUsersId = await _context.Matches
+                .Where(s => s.MacherId == id)
+                .Select(s => s.MacherId)
+                .ToListAsync();
+
+            return rowsByUsersId;
+        }
+
         public async Task<IEnumerable<int>> GetSwipedUserIdsAsync(int swipingUserId)
         {
             // Query the Swipes table to get swiped user IDs for the given user
@@ -84,14 +94,7 @@ namespace NutellaTinderElla.Services.ActiveUser
         {
             return await _context.User.AnyAsync(c => c.Id == id);
         }
-        /*  private Task<bool> FranchiseExistsAsync(int franchiseId)
-          {
-              return _context.Franchises.AnyAsync(f => f.Id == franchiseId);
-          }
-          private Task<bool> MovieExistsAsync(int movieId)
-          {
-              return _context.Movies.AnyAsync(m => m.Id == movieId);
-          }*/
+
     }
 }
 
