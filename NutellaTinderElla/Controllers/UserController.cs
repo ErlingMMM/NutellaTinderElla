@@ -252,29 +252,20 @@ namespace NutellaTinderElla.Controllers
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpGet("{id}/matches")]
-        public async Task<ActionResult<IEnumerable<UserDTO>>> GetMAtchesForUser(int id)
+        public async Task<ActionResult<IEnumerable<UserDTO>>> GetMatchesForUser(int id)
         {
             var allUsers = await _userService.GetAllAsync();
 
             var rowsWithUsersMatches = await _userService.GetUsersMatchByUsersIdsAsync(id);
 
             var usersToDisplay = allUsers.Where(u =>
-                // Exclude the user's own profile
-                u.Id != id &&
-
                 rowsWithUsersMatches.Contains(u.Id)
             ).ToList();
 
+            // Explicitly map each user to UserDTO
+            var userDTOs = usersToDisplay.Select(u => _mapper.Map<UserDTO>(u)).ToList();
 
-            // If there are no users left after filtering, return an empty list
-            if (usersToDisplay.Count == 0)
-            {
-                return Ok(new List<UserDTO>());
-            }
-
-
-            // Map the user profile to DTO and return
-            return Ok(_mapper.Map<UserDTO>(usersToDisplay));
+            return Ok(userDTOs);
         }
     }
 }

@@ -71,7 +71,7 @@ namespace NutellaTinderElla.Services.ActiveUser
         {
             var rowsByUsersId = await _context.Matches
                 .Where(s => s.MacherId == id)
-                .Select(s => s.MacherId)
+                .Select(s => s.MatchedUserId)
                 .ToListAsync();
 
             return rowsByUsersId;
