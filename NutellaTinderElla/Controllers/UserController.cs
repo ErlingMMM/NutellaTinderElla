@@ -24,13 +24,15 @@ namespace NutellaTinderElla.Controllers
         private readonly IUserService _userService;
         private readonly ILikeService _likeService;
         private readonly ISwipeService _swipeService;
+        private readonly IMatchService _matchService;
         private readonly IMapper _mapper;
 
-        public UserController(IUserService userService, ILikeService likeService, ISwipeService dislikeService, IMapper mapper)
+        public UserController(IUserService userService, ILikeService likeService, ISwipeService dislikeService, IMatchService matchService, IMapper mapper)
         {
             _userService = userService;
             _likeService = likeService;
             _swipeService = dislikeService;
+            _matchService = matchService;
             _mapper = mapper;
         }
 
@@ -61,9 +63,9 @@ namespace NutellaTinderElla.Controllers
         /// <param name="newUser"></param>
         /// <returns></returns>
         [HttpPost]
-        public async Task<ActionResult<UserDTO>> PostUser(UserPostDTO currentUser)
+        public async Task<ActionResult<UserDTO>> PostUser(UserPostDTO user)
         {
-            var newUser = await _userService.AddAsync(_mapper.Map<User>(currentUser));
+            var newUser = await _userService.AddAsync(_mapper.Map<User>(user));
 
             return CreatedAtAction("GetUser",
                 new { id = newUser.Id },
@@ -168,7 +170,15 @@ namespace NutellaTinderElla.Controllers
                 var hasMatch = await _likeService.HasMatchAsync(liker.Id, likedUserEntity.Id);
                 if (hasMatch)
                 {
-                    return Ok("Congratulations! You have a match!");
+                    var match = new Match
+                    {
+                        MacherId = liker.Id,
+                        MatchedUserId = likedUserEntity.Id
+                    };
+
+                    await _matchService.AddAsync(match);
+
+                    return Ok("Users has matched");
                 }
 
             }

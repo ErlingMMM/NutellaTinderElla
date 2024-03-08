@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using NutellaTinderEllaApi.Data.Exceptions;
-using NutellaTinderEllaApi.Data.Models;
 using NutellaTinderEllaApi.Data;
 using NutellaTinderElla.Data.Models;
 

@@ -20,8 +20,8 @@ namespace NutellaTinderEllaApi
                 options.SwaggerDoc("v1", new OpenApiInfo
                 {
                     Version = "v1",
-                    Title = "Movies API",
-                    Description = "API for managing the best of movies",
+                    Title = "Cruella Nutella Tinder Ella API",
+                    Description = "API for the best dating app",
                     TermsOfService = new Uri("https://example.com/terms"),
                     Contact = new OpenApiContact
                     {
@@ -42,6 +42,7 @@ namespace NutellaTinderEllaApi
             builder.Services.AddScoped<IUserService, UserService>();
             builder.Services.AddScoped<ILikeService, LikeService>();
             builder.Services.AddScoped<ISwipeService, SwipeService>();
+            builder.Services.AddScoped<IMatchService, MatchService>();
 
             // Add automapper
             builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());

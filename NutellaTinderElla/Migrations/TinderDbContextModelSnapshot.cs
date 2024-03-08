@@ -42,6 +42,27 @@ namespace NutellaTinderElla.Migrations
                     b.ToTable("Likes");
                 });
 
+            modelBuilder.Entity("NutellaTinderElla.Data.Models.Match", b =>
+                {
+                    b.Property<int>("MacherId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("MatchedUserId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.HasKey("MacherId", "MatchedUserId");
+
+                    b.HasIndex("MatchedUserId");
+
+                    b.ToTable("Matches");
+                });
+
             modelBuilder.Entity("NutellaTinderElla.Data.Models.Swipes", b =>
                 {
                     b.Property<int>("SwiperId")
@@ -110,7 +131,7 @@ namespace NutellaTinderElla.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("CurrentUser");
+                    b.ToTable("Users");
 
                     b.HasData(
                         new
@@ -277,6 +298,25 @@ namespace NutellaTinderElla.Migrations
                     b.Navigation("Liker");
                 });
 
+            modelBuilder.Entity("NutellaTinderElla.Data.Models.Match", b =>
+                {
+                    b.HasOne("NutellaTinderEllaApi.Data.Models.User", "Matcher")
+                        .WithMany("Matches")
+                        .HasForeignKey("MacherId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("NutellaTinderEllaApi.Data.Models.User", "MatchedUser")
+                        .WithMany()
+                        .HasForeignKey("MatchedUserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("MatchedUser");
+
+                    b.Navigation("Matcher");
+                });
+
             modelBuilder.Entity("NutellaTinderElla.Data.Models.Swipes", b =>
                 {
                     b.HasOne("NutellaTinderEllaApi.Data.Models.User", "SwipedUser")
@@ -299,6 +339,8 @@ namespace NutellaTinderElla.Migrations
             modelBuilder.Entity("NutellaTinderEllaApi.Data.Models.User", b =>
                 {
                     b.Navigation("Likes");
+
+                    b.Navigation("Matches");
 
                     b.Navigation("Swipes");
                 });

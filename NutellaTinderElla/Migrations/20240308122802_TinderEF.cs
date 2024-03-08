@@ -13,7 +13,7 @@ namespace NutellaTinderElla.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "CurrentUser",
+                name: "Users",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -30,7 +30,7 @@ namespace NutellaTinderElla.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_CurrentUser", x => x.Id);
+                    table.PrimaryKey("PK_Users", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -46,15 +46,41 @@ namespace NutellaTinderElla.Migrations
                 {
                     table.PrimaryKey("PK_Likes", x => new { x.LikerId, x.LikedUserId });
                     table.ForeignKey(
-                        name: "FK_Likes_CurrentUser_LikedUserId",
+                        name: "FK_Likes_Users_LikedUserId",
                         column: x => x.LikedUserId,
-                        principalTable: "CurrentUser",
+                        principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Likes_CurrentUser_LikerId",
+                        name: "FK_Likes_Users_LikerId",
                         column: x => x.LikerId,
-                        principalTable: "CurrentUser",
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Matches",
+                columns: table => new
+                {
+                    MacherId = table.Column<int>(type: "int", nullable: false),
+                    MatchedUserId = table.Column<int>(type: "int", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Matches", x => new { x.MacherId, x.MatchedUserId });
+                    table.ForeignKey(
+                        name: "FK_Matches_Users_MacherId",
+                        column: x => x.MacherId,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Matches_Users_MatchedUserId",
+                        column: x => x.MatchedUserId,
+                        principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -72,21 +98,21 @@ namespace NutellaTinderElla.Migrations
                 {
                     table.PrimaryKey("PK_Swipes", x => new { x.SwiperId, x.SwipedUserId });
                     table.ForeignKey(
-                        name: "FK_Swipes_CurrentUser_SwipedUserId",
+                        name: "FK_Swipes_Users_SwipedUserId",
                         column: x => x.SwipedUserId,
-                        principalTable: "CurrentUser",
+                        principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Swipes_CurrentUser_SwiperId",
+                        name: "FK_Swipes_Users_SwiperId",
                         column: x => x.SwiperId,
-                        principalTable: "CurrentUser",
+                        principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.InsertData(
-                table: "CurrentUser",
+                table: "Users",
                 columns: new[] { "Id", "Age", "Bio", "Email", "Gender", "GenderPreference", "Name", "PhoneNumber", "Picture", "Seeking" },
                 values: new object[,]
                 {
@@ -109,6 +135,11 @@ namespace NutellaTinderElla.Migrations
                 column: "LikedUserId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Matches_MatchedUserId",
+                table: "Matches",
+                column: "MatchedUserId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Swipes_SwipedUserId",
                 table: "Swipes",
                 column: "SwipedUserId");
@@ -121,10 +152,13 @@ namespace NutellaTinderElla.Migrations
                 name: "Likes");
 
             migrationBuilder.DropTable(
+                name: "Matches");
+
+            migrationBuilder.DropTable(
                 name: "Swipes");
 
             migrationBuilder.DropTable(
-                name: "CurrentUser");
+                name: "Users");
         }
     }
 }

@@ -4,7 +4,7 @@ using NutellaTinderElla.Data.Models;
 
 namespace NutellaTinderEllaApi.Data.Models
 {
-    [Table("CurrentUser")]
+    [Table("Users")]
     public class User
     {
         [Key]
@@ -41,10 +41,13 @@ namespace NutellaTinderEllaApi.Data.Models
         public ICollection<Like> Likes { get; set; }
         public ICollection<Swipes> Swipes { get; set; }
 
+        public ICollection<Match> Matches { get; set; }
+
         public User()
         {
             Likes = new List<Like>();
             Swipes = new List<Swipes>();
+            Matches = new List<Match>();
 
         }
 
