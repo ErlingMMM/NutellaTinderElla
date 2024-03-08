@@ -27,11 +27,11 @@ namespace NutellaTinderElla.Controllers
         private readonly IMatchService _matchService;
         private readonly IMapper _mapper;
 
-        public UserController(IUserService userService, ILikeService likeService, ISwipeService dislikeService, IMatchService matchService, IMapper mapper)
+        public UserController(IUserService userService, ILikeService likeService, ISwipeService swipeService, IMatchService matchService, IMapper mapper)
         {
             _userService = userService;
             _likeService = likeService;
-            _swipeService = dislikeService;
+            _swipeService = swipeService;
             _matchService = matchService;
             _mapper = mapper;
         }
@@ -163,8 +163,14 @@ namespace NutellaTinderElla.Controllers
                     LikedUserId = likedUserEntity.Id
                 };
 
+                var swipe = new Swipes
+                {
+                    SwiperId = liker.Id,
+                    SwipedUserId = likedUserEntity.Id
+                };
 
                 await _likeService.AddAsync(like);
+                await _swipeService.AddAsync(swipe);
 
 
                 var hasMatch = await _likeService.HasMatchAsync(liker.Id, likedUserEntity.Id);
