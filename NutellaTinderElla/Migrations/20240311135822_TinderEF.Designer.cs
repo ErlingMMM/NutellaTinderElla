@@ -11,7 +11,7 @@ using NutellaTinderEllaApi.Data;
 namespace NutellaTinderElla.Migrations
 {
     [DbContext(typeof(TinderDbContext))]
-    [Migration("20240308122802_TinderEF")]
+    [Migration("20240311135822_TinderEF")]
     partial class TinderEF
     {
         /// <inheritdoc />

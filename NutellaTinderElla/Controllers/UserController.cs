@@ -268,6 +268,9 @@ namespace NutellaTinderElla.Controllers
             return Ok(userDTOs);
         }
 
+
+
+
         /// <summary>
         /// Delete a match by the user's id and match user's id
         /// </summary>
@@ -278,6 +281,7 @@ namespace NutellaTinderElla.Controllers
         public async Task<ActionResult> DeleteMatchForUser(int userId, int matchedUserId)
         {
             await _matchService.DeleteMatchByIdAsync(userId, matchedUserId);
+            await _likeService.DeleteLikeByIdAsync(userId, matchedUserId);
             return NoContent();
         }
 

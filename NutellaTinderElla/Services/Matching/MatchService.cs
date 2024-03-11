@@ -60,7 +60,6 @@ namespace NutellaTinderElla.Services.Matching
         }
 
 
-
         public async Task DeleteMatchByIdAsync(int userId, int matchedUserId)
         {
             var match = await _context.Matches.FirstOrDefaultAsync(m =>
@@ -77,5 +76,7 @@ namespace NutellaTinderElla.Services.Matching
                 throw new EntityNotFoundException(nameof(Match), userId, matchedUserId);
             }
         }
+
+
     }
 }

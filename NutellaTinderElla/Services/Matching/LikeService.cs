@@ -73,6 +73,22 @@ namespace NutellaTinderElla.Services.Matching
         }
 
 
+        public async Task DeleteLikeByIdAsync(int userId, int matchedUserId)
+        {
+            var likes = await _context.Likes.Where(l =>
+                (l.LikerId == userId && l.LikedUserId == matchedUserId) ||
+                (l.LikerId == matchedUserId && l.LikedUserId == userId)).ToListAsync();
+
+            if (likes.Any())
+            {
+                _context.Likes.RemoveRange(likes);
+                await _context.SaveChangesAsync();
+            }
+            else
+            {
+                throw new EntityNotFoundException(nameof(Like), userId, matchedUserId);
+            }
+        }
 
         //Helper Methods
         private async Task<bool> UserExistsAsync(int id)
