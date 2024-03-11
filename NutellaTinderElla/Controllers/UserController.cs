@@ -285,6 +285,20 @@ namespace NutellaTinderElla.Controllers
             return NoContent();
         }
 
+
+
+        /// <summary>
+        /// Delete user by id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpDelete("{id}/")]
+        public async Task<ActionResult> DeleteUser(int id)
+        {
+            await _userService.DeleteByIdAsync(id);
+            return NoContent();
+        }
+
     }
 }
 
