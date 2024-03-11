@@ -15,7 +15,6 @@ namespace NutellaTinderEllaApi.Data
         public DbSet<User> User { get; set; }
         public DbSet<Like> Likes { get; set; }
         public DbSet<Swipes> Swipes { get; set; }
-
         public DbSet<Match> Matches { get; set; }
 
 
@@ -39,7 +38,7 @@ namespace NutellaTinderEllaApi.Data
                     Bio = "Passionate about travel, cooking, and outdoor adventures. Looking for someone to explore new cuisines and hiking trails with. Let's create memories together!",
                     Gender = 1,
                     GenderPreference = 1,
-                    Seeking = SeekingPreference.Friendship,
+                    Seeking = 0,
                     PhoneNumber = "555-123-4567",
                     Picture = "emily_profile_picture.jpg",
                 },
@@ -55,7 +54,7 @@ namespace NutellaTinderEllaApi.Data
                     Bio = "Tech enthusiast, coffee lover, and avid reader. Seeking meaningful connections and engaging conversations. Let's explore the city together!",
                     Gender = 0,
                     GenderPreference = 2,
-                    Seeking = SeekingPreference.CasualDating,
+                    Seeking = 1,
                     PhoneNumber = "555-987-6543",
                     Picture = "john_profile_picture.jpg"
                 },
@@ -68,7 +67,7 @@ new User
     Bio = "Passionate about art, music, and nature. Looking for someone who shares similar interests and enjoys spontaneous adventures.",
     Gender = 1,
     GenderPreference = 0,
-    Seeking = SeekingPreference.CasualDating,
+    Seeking = 1,
     PhoneNumber = "555-555-5555",
     Picture = "olivia_profile_picture.jpg"
 },
@@ -81,7 +80,7 @@ new User
     Bio = "Fitness enthusiast, foodie, and travel addict. Seeking someone to join me on my next hiking trip and explore new culinary delights.",
     Gender = 0,
     GenderPreference = 1,
-    Seeking = SeekingPreference.CasualDating,
+    Seeking = 1,
     PhoneNumber = "555-222-3333",
     Picture = "michael_profile_picture.jpg"
 },
@@ -94,7 +93,7 @@ new User
     Bio = "Bookworm, animal lover, and adventure seeker. Looking for someone who values intellectual conversations and enjoys outdoor activities.",
     Gender = 1,
     GenderPreference = 0,
-    Seeking = SeekingPreference.Friendship,
+    Seeking = 0,
     PhoneNumber = "555-777-8888",
     Picture = "sophia_profile_picture.jpg"
 },
@@ -107,7 +106,7 @@ new User
     Bio = "Gamer, movie buff, and pizza enthusiast. Seeking someone to binge-watch Netflix series and share a slice of pizza with.",
     Gender = 0,
     GenderPreference = 2,
-    Seeking = SeekingPreference.Friendship,
+    Seeking = 0,
     PhoneNumber = "555-444-5555",
     Picture = "daniel_profile_picture.jpg"
 },
@@ -120,7 +119,7 @@ new User
     Bio = "Nature lover, coffee addict, and amateur photographer. Seeking someone who appreciates sunsets, coffee dates, and long walks in the park.",
     Gender = 1,
     GenderPreference = 1,
-    Seeking = SeekingPreference.CasualDating,
+    Seeking = 1,
     PhoneNumber = "555-999-1111",
     Picture = "emma_profile_picture.jpg"
 },
@@ -133,7 +132,7 @@ new User
     Bio = "Tech geek, foodie, and aspiring chef. Looking for someone who enjoys experimenting with new recipes and binge-watching sci-fi movies.",
     Gender = 0,
     GenderPreference = 0,
-    Seeking = SeekingPreference.Friendship,
+    Seeking = 0,
     PhoneNumber = "555-333-2222",
     Picture = "liam_profile_picture.jpg"
 },
@@ -146,7 +145,7 @@ new User
     Bio = "Music lover, traveler, and coffee connoisseur. Seeking someone who enjoys spontaneous road trips, live music, and lazy Sundays.",
     Gender = 1,
     GenderPreference = 2,
-    Seeking = SeekingPreference.CasualDating,
+    Seeking = 1,
     PhoneNumber = "555-666-9999",
     Picture = "ava_profile_picture.jpg"
 },
@@ -159,7 +158,7 @@ new User
     Bio = "Adventure seeker, adrenaline junkie, and thrill-seeker. Looking for someone who shares a passion for extreme sports and outdoor adventures.",
     Gender = 0,
     GenderPreference = 1,
-    Seeking = SeekingPreference.CasualDating,
+    Seeking = 1,
     PhoneNumber = "555-111-7777",
     Picture = "ethan_profile_picture.jpg"
 },
@@ -172,7 +171,7 @@ new User
     Bio = "Art enthusiast, wine lover, and aspiring painter. Seeking someone who appreciates creativity, fine wine, and deep conversations.",
     Gender = 1,
     GenderPreference = 0,
-    Seeking = SeekingPreference.Friendship,
+    Seeking = 0,
     PhoneNumber = "555-888-2222",
     Picture = "isabella_profile_picture.jpg"
 }

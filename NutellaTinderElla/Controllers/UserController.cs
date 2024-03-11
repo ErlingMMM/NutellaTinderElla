@@ -267,6 +267,20 @@ namespace NutellaTinderElla.Controllers
 
             return Ok(userDTOs);
         }
+
+        /// <summary>
+        /// Delete a match by the user's id and match user's id
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <param name="matchedUserId"></param>
+        /// <returns></returns>
+        [HttpDelete("{userId}/match/{matchedUserId}")]
+        public async Task<ActionResult> DeleteMatchForUser(int userId, int matchedUserId)
+        {
+            await _matchService.DeleteMatchByIdAsync(userId, matchedUserId);
+            return NoContent();
+        }
+
     }
 }
 

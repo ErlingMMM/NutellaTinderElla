@@ -4,16 +4,6 @@ using NutellaTinderElla.Data.Models;
 
 namespace NutellaTinderEllaApi.Data.Models
 {
-
-    public enum SeekingPreference
-    {
-        Friendship,
-        CasualDating,
-        SeriousRelationship,
-        NoPreference
-    }
-
-
     [Table("Users")]
     public class User
     {
@@ -28,7 +18,7 @@ namespace NutellaTinderEllaApi.Data.Models
 
         public int Gender { get; set; }
 
-        public SeekingPreference Seeking { get; set; }
+        public int Seeking { get; set; }
 
 
         [Required]

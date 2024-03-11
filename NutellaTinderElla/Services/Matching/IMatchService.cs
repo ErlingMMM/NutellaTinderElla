@@ -5,6 +5,7 @@ namespace NutellaTinderElla.Services.Matching
 {
     public interface IMatchService : ICrudService<Match, int>
     {
+        Task DeleteMatchByIdAsync(int userId, int matchedUserId);
 
     }
 }

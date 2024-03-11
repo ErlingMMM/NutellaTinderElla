@@ -58,5 +58,21 @@ namespace NutellaTinderElla.Services.Matching
             await _context.SaveChangesAsync();
             return obj;
         }
+
+
+
+        public async Task DeleteMatchByIdAsync(int userId, int matchedUserId)
+        {
+            var match = await _context.Matches.FindAsync(userId, matchedUserId);
+            if (match != null)
+            {
+                _context.Matches.Remove(match);
+                await _context.SaveChangesAsync();
+            }
+            else
+            {
+                throw new EntityNotFoundException(nameof(Match), userId, matchedUserId);
+            }
+        }
     }
 }
