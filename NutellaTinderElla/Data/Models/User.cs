@@ -4,6 +4,16 @@ using NutellaTinderElla.Data.Models;
 
 namespace NutellaTinderEllaApi.Data.Models
 {
+
+    public enum SeekingPreference
+    {
+        Friendship,
+        CasualDating,
+        SeriousRelationship,
+        NoPreference
+    }
+
+
     [Table("Users")]
     public class User
     {
@@ -18,7 +28,8 @@ namespace NutellaTinderEllaApi.Data.Models
 
         public int Gender { get; set; }
 
-        public int Seeking { get; set; }
+        public SeekingPreference Seeking { get; set; }
+
 
         [Required]
         [StringLength(255)]
@@ -48,7 +59,11 @@ namespace NutellaTinderEllaApi.Data.Models
             Likes = new List<Like>();
             Swipes = new List<Swipes>();
             Matches = new List<Match>();
-
+            Bio = "";
+            Email = "";
+            Name = "";
+            PhoneNumber = "";
+            Picture = "";
         }
 
     }

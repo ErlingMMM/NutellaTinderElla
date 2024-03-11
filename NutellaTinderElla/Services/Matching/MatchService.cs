@@ -22,13 +22,9 @@ namespace NutellaTinderElla.Services.Matching
 
         public async Task<Match> GetByIdAsync(int id)
         {
-            var match = await _context.Matches.FindAsync(id);
-
-            if (match == null)
-                throw new EntityNotFoundException(nameof(Match), id);
-
-            return match;
+            return await _context.Matches.FindAsync(id) ?? throw new EntityNotFoundException(nameof(Match), id);
         }
+
 
         public async Task<Match> AddAsync(Match obj)
         {
@@ -40,12 +36,18 @@ namespace NutellaTinderElla.Services.Matching
         public async Task DeleteByIdAsync(int id)
         {
             var match = await _context.Matches.FindAsync(id);
-            if (match == null)
+            if (match != null)
+            {
+                _context.Matches.Remove(match);
+                await _context.SaveChangesAsync();
+            }
+            else
+            {
                 throw new EntityNotFoundException(nameof(Match), id);
-
-            _context.Matches.Remove(match);
-            await _context.SaveChangesAsync();
+            }
         }
+
+
 
         public async Task<Match> UpdateAsync(Match obj)
         {

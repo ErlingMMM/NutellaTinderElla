@@ -13,10 +13,10 @@ namespace NutellaTinderElla.Data.Models
 
         // Foreign key to refer to the user who likes
         public int SwiperId { get; set; }
-        public User Swiper { get; set; }
+        public User? Swiper { get; set; }
 
         // Foreign key to refer to the user who is liked
         public int SwipedUserId { get; set; }
-        public User SwipedUser { get; set; }
+        public User? SwipedUser { get; set; }
     }
 }
