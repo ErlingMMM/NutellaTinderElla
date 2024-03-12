@@ -347,7 +347,8 @@ namespace NutellaTinderElla.Controllers
                     {
                         SenderId = sender.Id,
                         ReceiverId = receivingUserEntity.Id,
-                        Content = content
+                        Content = content,
+                        Timestamp = DateTime.UtcNow
                     };
 
                     await _messageService.AddAsync(message);

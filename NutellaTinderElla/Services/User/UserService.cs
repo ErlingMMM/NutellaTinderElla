@@ -47,8 +47,7 @@ namespace NutellaTinderElla.Services.UserData
                 .Where(c => c.Id == id)
                 .FirstAsync();
 
-            //Needs to clear relations
-            //cha.Movies.Clear();
+
 
             _context.User.Remove(curUs);
             await _context.SaveChangesAsync();

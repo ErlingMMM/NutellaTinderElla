@@ -50,7 +50,6 @@ namespace NutellaTinderEllaApi
             builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
             builder.Services.AddAutoMapper(typeof(UserService));
-            builder.Services.AddAutoMapper(typeof(MatchService));
 
 
             var app = builder.Build();
