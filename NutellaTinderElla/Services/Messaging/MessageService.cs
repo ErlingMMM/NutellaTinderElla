@@ -37,18 +37,17 @@ namespace NutellaTinderElla.Services.Messaging
         }
         public async Task DeleteByIdAsync(int id)
         {
-            if (!await UserExistsAsync(id))
-                throw new EntityNotFoundException(nameof(Message), id);
 
-            var message = await _context.Message
-                .Where(c => c.Id == id)
-                .FirstAsync();
+            var messages = await _context.Message.Where(m =>
+                       (m.SenderId == id || m.ReceiverId == id)).ToListAsync();
 
-
-
-            _context.Message.Remove(message);
-            await _context.SaveChangesAsync();
+            if (messages.Any())
+            {
+                _context.Message.RemoveRange(messages);
+                await _context.SaveChangesAsync();
+            }
         }
+
         public async Task<Message> UpdateAsync(Message obj)
         {
             if (!await UserExistsAsync(obj.Id))

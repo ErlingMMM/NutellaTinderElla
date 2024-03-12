@@ -307,6 +307,7 @@ namespace NutellaTinderElla.Controllers
             await _likeService.DeleteByIdAsync(id);
             await _matchService.DeleteByIdAsync(id);
             await _swipeService.DeleteByIdAsync(id);
+            await _messageService.DeleteByIdAsync(id);
             await _userService.DeleteByIdAsync(id);
             return NoContent();
         }

@@ -52,8 +52,6 @@ namespace NutellaTinderElla.Services.Matching
         }
 
 
-
-
         public async Task<Like> UpdateAsync(Like obj)
         {
             if (!await UserExistsAsync(obj.Id))
