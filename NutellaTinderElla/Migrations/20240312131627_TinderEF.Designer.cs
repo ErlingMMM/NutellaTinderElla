@@ -12,7 +12,7 @@ using NutellaTinderEllaApi.Data;
 namespace NutellaTinderElla.Migrations
 {
     [DbContext(typeof(TinderDbContext))]
-    [Migration("20240312122750_TinderEF")]
+    [Migration("20240312131627_TinderEF")]
     partial class TinderEF
     {
         /// <inheritdoc />
@@ -101,7 +101,10 @@ namespace NutellaTinderElla.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("Timestamp")
                         .HasColumnType("datetime2");
