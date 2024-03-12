@@ -4,10 +4,8 @@ namespace NutellaTinderElla.Data.Dtos.Messaging
 {
     public class MessagePostDTO
     {
-        [Required]
         public int SenderId { get; set; }
 
-        [Required]
         public int ReceiverId { get; set; }
 
         [Required]

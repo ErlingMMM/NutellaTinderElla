@@ -2,7 +2,6 @@
 using NutellaTinderEllaApi.Data.Exceptions;
 using NutellaTinderEllaApi.Data;
 using NutellaTinderElla.Data.Models;
-using NutellaTinderEllaApi.Data.Models;
 
 
 namespace NutellaTinderElla.Services.Matching
@@ -62,8 +61,8 @@ namespace NutellaTinderElla.Services.Matching
         public async Task DeleteMatchByIdAsync(int userId, int matchedUserId)
         {
             var match = await _context.Matches.FirstOrDefaultAsync(m =>
-      (m.MacherId == userId && m.MatchedUserId == matchedUserId) ||
-      (m.MacherId == matchedUserId && m.MatchedUserId == userId));
+            (m.MacherId == userId && m.MatchedUserId == matchedUserId) ||
+            (m.MacherId == matchedUserId && m.MatchedUserId == userId));
 
             if (match != null)
             {

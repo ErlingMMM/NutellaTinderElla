@@ -92,17 +92,17 @@ namespace NutellaTinderElla.Migrations
                 name: "Message",
                 columns: table => new
                 {
-                    SenderId = table.Column<int>(type: "int", nullable: false),
-                    ReceiverId = table.Column<int>(type: "int", nullable: false),
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    SenderId = table.Column<int>(type: "int", nullable: false),
+                    ReceiverId = table.Column<int>(type: "int", nullable: false),
                     Content = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Timestamp = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UserId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Message", x => new { x.SenderId, x.ReceiverId });
+                    table.PrimaryKey("PK_Message", x => x.Id);
                     table.ForeignKey(
                         name: "FK_Message_Users_ReceiverId",
                         column: x => x.ReceiverId,
@@ -180,6 +180,11 @@ namespace NutellaTinderElla.Migrations
                 name: "IX_Message_ReceiverId",
                 table: "Message",
                 column: "ReceiverId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Message_SenderId",
+                table: "Message",
+                column: "SenderId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Message_UserId",

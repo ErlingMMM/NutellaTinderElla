@@ -249,7 +249,11 @@ new User
 
 
             modelBuilder.Entity<Message>()
-       .HasKey(m => new { m.SenderId, m.ReceiverId });
+                .HasKey(m => m.Id);
+
+            modelBuilder.Entity<Message>()
+                .Property(m => m.Id)
+                .ValueGeneratedOnAdd();
 
             modelBuilder.Entity<Message>()
                 .HasOne(m => m.Sender)

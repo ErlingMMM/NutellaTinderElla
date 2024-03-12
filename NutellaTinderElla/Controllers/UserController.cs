@@ -336,7 +336,7 @@ namespace NutellaTinderElla.Controllers
                 var receivingUserEntity = await _userService.GetByIdAsync(receiverId);
                 if (receivingUserEntity == null)
                 {
-                    return NotFound($"Receiving user user with id {receiverId} not found");
+                    return NotFound($"Receiving user with id {receiverId} not found");
                 }
 
 
