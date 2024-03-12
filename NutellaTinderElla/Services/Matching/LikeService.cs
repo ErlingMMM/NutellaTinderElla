@@ -2,6 +2,7 @@
 using NutellaTinderEllaApi.Data.Exceptions;
 using NutellaTinderEllaApi.Data;
 using NutellaTinderElla.Data.Models;
+using NutellaTinderEllaApi.Data.Models;
 
 namespace NutellaTinderElla.Services.Matching
 {
@@ -39,23 +40,24 @@ namespace NutellaTinderElla.Services.Matching
         }
         public async Task DeleteByIdAsync(int id)
         {
-            if (!await UserExistsAsync(id))
-                throw new EntityNotFoundException(nameof(Like), id);
+            var likes = await _context.Likes.Where(l =>
+                       (l.LikerId == id || l.LikedUserId == id)).ToListAsync();
 
-            var curUs = await _context.User
-                .Where(c => c.Id == id)
-                .FirstAsync();
+            if (likes.Any())
+            {
+                _context.Likes.RemoveRange(likes);
+                await _context.SaveChangesAsync();
+            }
 
-
-
-            _context.User.Remove(curUs);
-            await _context.SaveChangesAsync();
         }
+
+
+
+
         public async Task<Like> UpdateAsync(Like obj)
         {
             if (!await UserExistsAsync(obj.Id))
                 throw new EntityNotFoundException(nameof(Like), obj.Id);
-
 
             _context.Entry(obj).State = EntityState.Modified;
             await _context.SaveChangesAsync();

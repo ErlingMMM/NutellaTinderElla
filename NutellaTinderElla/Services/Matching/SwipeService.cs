@@ -37,18 +37,39 @@ namespace NutellaTinderElla.Services.Matching
             return obj;
         }
 
+
+
+
         public async Task DeleteByIdAsync(int id)
         {
-            if (!await SwipeExistsAsync(id))
-                throw new EntityNotFoundException(nameof(Swipes), id);
+            var swipe = await _context.Swipes.Where(l =>
+                      (l.SwiperId == id || l.SwipedUserId == id)).ToListAsync();
 
-            var curUs = await _context.Swipes
-                .Where(c => c.Id == id)
-                .FirstAsync();
+            if (swipe.Any())
+            {
+                _context.Swipes.RemoveRange(swipe);
+                await _context.SaveChangesAsync();
+            }
 
-            _context.Swipes.Remove(curUs);
-            await _context.SaveChangesAsync();
         }
+
+        public async Task DeleteSwipeByIdAsync(int userId, int matchedUserId)
+        {
+            var swipes = await _context.Swipes.Where(s =>
+                (s.SwiperId == userId && s.SwipedUserId == matchedUserId) ||
+                (s.SwiperId == matchedUserId && s.SwipedUserId == userId)).ToListAsync();
+
+            if (swipes.Any())
+            {
+                _context.Swipes.RemoveRange(swipes);
+                await _context.SaveChangesAsync();
+            }
+            else
+            {
+                throw new EntityNotFoundException(nameof(Swipes), userId, matchedUserId);
+            }
+        }
+
 
         public async Task<Swipes> UpdateAsync(Swipes obj)
         {

@@ -282,6 +282,7 @@ namespace NutellaTinderElla.Controllers
         {
             await _matchService.DeleteMatchByIdAsync(userId, matchedUserId);
             await _likeService.DeleteLikeByIdAsync(userId, matchedUserId);
+            await _swipeService.DeleteSwipeByIdAsync(userId, matchedUserId);
             return NoContent();
         }
 
@@ -292,9 +293,12 @@ namespace NutellaTinderElla.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        [HttpDelete("{id}/")]
+        [HttpDelete("{id}")]
         public async Task<ActionResult> DeleteUser(int id)
         {
+            await _likeService.DeleteByIdAsync(id);
+            await _matchService.DeleteByIdAsync(id);
+            await _swipeService.DeleteByIdAsync(id);
             await _userService.DeleteByIdAsync(id);
             return NoContent();
         }
