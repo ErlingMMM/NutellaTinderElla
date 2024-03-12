@@ -66,11 +66,10 @@ namespace NutellaTinderElla.Services.Matching
         }
 
 
-        public async Task<bool> HasMatchAsync(int likerId, int likedUser)
+        public async Task<bool> HasMatchAsync(int likerId, int likedUserId)
         {
             var hasMatch = await _context.Likes
-                .AnyAsync(l => l.LikedUserId == likerId && l.LikerId == likedUser);
-
+                .AnyAsync(l => (l.LikedUserId == likerId && l.LikerId == likedUserId));
             return hasMatch;
         }
 

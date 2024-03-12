@@ -76,6 +76,14 @@ namespace NutellaTinderElla.Services.Matching
             }
         }
 
-
+        public async Task<bool> HasMatchAsync(int matcherId, int matchingUserId)
+        {
+            var hasMatch = await _context.Matches
+                .AnyAsync(m =>
+                (m.MacherId == matcherId && m.MatchedUserId == matchingUserId) ||
+                (m.MatchedUserId == matcherId && m.MacherId == matchingUserId)
+                );
+            return hasMatch;
+        }
     }
 }

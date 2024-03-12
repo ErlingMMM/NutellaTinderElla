@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using NutellaTinderEllaApi.Data.Models;
-using NutellaTinderElla.Data.Dtos.User;
+using NutellaTinderElla.Data.Dtos.UserData;
 using NutellaTinderElla.Data.Dtos.Matching;
 
 namespace NutellaTinderEllaApi.Mappers

@@ -17,6 +17,9 @@ namespace NutellaTinderEllaApi.Data
         public DbSet<Swipes> Swipes { get; set; }
         public DbSet<Match> Matches { get; set; }
 
+        public DbSet<Message> Message { get; set; }
+
+
 
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -244,6 +247,21 @@ new User
                 .HasForeignKey(l => l.MatchedUserId)
                 .OnDelete(DeleteBehavior.Restrict);
 
+
+            modelBuilder.Entity<Message>()
+       .HasKey(m => new { m.SenderId, m.ReceiverId });
+
+            modelBuilder.Entity<Message>()
+                .HasOne(m => m.Sender)
+                .WithMany(u => u.SentMessages)
+                .HasForeignKey(m => m.SenderId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Message>()
+                .HasOne(m => m.Receiver)
+                .WithMany()
+                .HasForeignKey(m => m.ReceiverId)
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

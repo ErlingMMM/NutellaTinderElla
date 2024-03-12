@@ -1,7 +1,7 @@
 ﻿using NutellaTinderEllaApi.Data.Models;
 using NutellaTinderEllaApi.Services;
 
-namespace NutellaTinderElla.Services.ActiveUser
+namespace NutellaTinderElla.Services.UserData
 
 {
     public interface IUserService : ICrudService<User, int>

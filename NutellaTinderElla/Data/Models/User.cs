@@ -46,12 +46,16 @@ namespace NutellaTinderEllaApi.Data.Models
         public ICollection<Swipes> Swipes { get; set; }
 
         public ICollection<Match> Matches { get; set; }
+        public ICollection<Message> SentMessages { get; set; }
+        public ICollection<Message> ReceivedMessages { get; set; }
 
         public User()
         {
             Likes = new List<Like>();
             Swipes = new List<Swipes>();
             Matches = new List<Match>();
+            SentMessages = new List<Message>();
+            ReceivedMessages = new List<Message>();
             Bio = "";
             Email = "";
             Name = "";

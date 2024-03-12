@@ -1,13 +1,14 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using NutellaTinderElla.Data.Dtos.User;
+using NutellaTinderElla.Data.Dtos.UserData;
 using NutellaTinderElla.Data.Dtos.Matching;
 using NutellaTinderElla.Data.Models;
-using NutellaTinderElla.Services.ActiveUser;
+using NutellaTinderElla.Services.UserData;
 using NutellaTinderElla.Services.Matching;
 using NutellaTinderEllaApi.Data.Exceptions;
 using NutellaTinderEllaApi.Data.Models;
 using System.Net.Mime;
+using NutellaTinderElla.Services.Messaging;
 
 namespace NutellaTinderElla.Controllers
 
@@ -25,14 +26,18 @@ namespace NutellaTinderElla.Controllers
         private readonly ILikeService _likeService;
         private readonly ISwipeService _swipeService;
         private readonly IMatchService _matchService;
+        private readonly IMessageService _messageService;
+
         private readonly IMapper _mapper;
 
-        public UserController(IUserService userService, ILikeService likeService, ISwipeService swipeService, IMatchService matchService, IMapper mapper)
+        public UserController(IUserService userService, ILikeService likeService, ISwipeService swipeService, IMatchService matchService, IMessageService messageService,
+            IMapper mapper)
         {
             _userService = userService;
             _likeService = likeService;
             _swipeService = swipeService;
             _matchService = matchService;
+            _messageService = messageService;
             _mapper = mapper;
         }
 
@@ -151,8 +156,6 @@ namespace NutellaTinderElla.Controllers
                 {
                     return NotFound($"Liker with id {id} not found");
                 }
-
-                var allLikes = await _likeService.GetAllAsync();
 
 
                 // Retrieve the liked user from the database based on the provided likedUserId
@@ -308,6 +311,57 @@ namespace NutellaTinderElla.Controllers
             return NoContent();
         }
 
+
+        /// <summary>
+        /// Adding liked users for spesific userprofile from database using userprofiles id, expects code 204
+        /// </summary>
+        /// <param name="senderId"></param>
+        /// <param name="receiverId"></param>
+        /// <param name="content"></param>
+        /// <returns></returns>
+        [HttpPost("{senderId}/message/{receiverId}")]
+        public async Task<IActionResult> PostMessage(int senderId, int receiverId, string content)
+        {
+            try
+            {
+
+                var sender = await _userService.GetByIdAsync(senderId);
+                if (sender == null)
+                {
+                    return NotFound($"Sender with id {senderId} not found");
+                }
+
+
+                var receivingUserEntity = await _userService.GetByIdAsync(receiverId);
+                if (receivingUserEntity == null)
+                {
+                    return NotFound($"Receiving user user with id {receiverId} not found");
+                }
+
+
+                var hasMatch = await _matchService.HasMatchAsync(sender.Id, receivingUserEntity.Id);
+                if (hasMatch)
+                {
+                    var message = new Message
+                    {
+                        SenderId = sender.Id,
+                        ReceiverId = receivingUserEntity.Id,
+                        Content = content
+                    };
+
+                    await _messageService.AddAsync(message);
+
+                    return Ok("Message sent");
+                }
+
+            }
+            catch (EntityNotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
+
+            return NoContent();
+        }
     }
 }
 

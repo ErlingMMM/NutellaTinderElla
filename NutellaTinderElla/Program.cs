@@ -1,9 +1,10 @@
 using Microsoft.OpenApi.Models;
-using NutellaTinderElla.Services.ActiveUser;
+using NutellaTinderElla.Services.UserData;
 using NutellaTinderEllaApi.Data;
 using System.Reflection;
 using Microsoft.EntityFrameworkCore;
 using NutellaTinderElla.Services.Matching;
+using NutellaTinderElla.Services.Messaging;
 
 namespace NutellaTinderEllaApi
 {
@@ -43,6 +44,7 @@ namespace NutellaTinderEllaApi
             builder.Services.AddScoped<ILikeService, LikeService>();
             builder.Services.AddScoped<ISwipeService, SwipeService>();
             builder.Services.AddScoped<IMatchService, MatchService>();
+            builder.Services.AddScoped<IMessageService, MessageService>();
 
             // Add automapper
             builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());

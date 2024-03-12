@@ -1,4 +1,4 @@
-﻿namespace NutellaTinderElla.Data.Dtos.User
+﻿namespace NutellaTinderElla.Data.Dtos.UserData
 {
     public class UserPublicDataDTO
     {

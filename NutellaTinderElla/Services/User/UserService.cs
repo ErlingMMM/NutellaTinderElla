@@ -3,7 +3,7 @@ using NutellaTinderEllaApi.Data.Exceptions;
 using NutellaTinderEllaApi.Data.Models;
 using NutellaTinderEllaApi.Data;
 
-namespace NutellaTinderElla.Services.ActiveUser
+namespace NutellaTinderElla.Services.UserData
 
 {
     public class UserService : IUserService
@@ -25,12 +25,12 @@ namespace NutellaTinderElla.Services.ActiveUser
 
         public async Task<User> GetByIdAsync(int id)
         {
-            var curUs = await _context.User.Where(c => c.Id == id).FirstAsync();
+            var user = await _context.User.Where(c => c.Id == id).FirstAsync();
 
-            if (curUs is null)
-                throw new EntityNotFoundException(nameof(curUs), id);
+            if (user is null)
+                throw new EntityNotFoundException(nameof(user), id);
 
-            return curUs;
+            return user;
         }
         public async Task<User> AddAsync(User obj)
         {
