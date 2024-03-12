@@ -26,7 +26,7 @@ namespace NutellaTinderEllaApi
                     TermsOfService = new Uri("https://example.com/terms"),
                     Contact = new OpenApiContact
                     {
-                        Name = "Erling & Ida",
+                        Name = "Tindeeeer",
                         Url = new Uri("https://example.com/contact")
                     }
                 });
@@ -50,6 +50,7 @@ namespace NutellaTinderEllaApi
             builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
             builder.Services.AddAutoMapper(typeof(UserService));
+            builder.Services.AddAutoMapper(typeof(MatchService));
 
 
             var app = builder.Build();
