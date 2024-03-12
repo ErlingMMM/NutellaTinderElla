@@ -50,7 +50,6 @@ namespace NutellaTinderElla.Services.Matching
                 _context.Swipes.RemoveRange(swipe);
                 await _context.SaveChangesAsync();
             }
-
         }
 
         public async Task DeleteSwipeByIdAsync(int userId, int matchedUserId)

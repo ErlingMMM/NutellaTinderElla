@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using NutellaTinderEllaApi.Data.Models;
-using NutellaTinderElla.Data.Dtos.ActiveUser;
+using NutellaTinderElla.Data.Dtos.User;
 using NutellaTinderElla.Data.Dtos.Matching;
 
 namespace NutellaTinderEllaApi.Mappers
@@ -11,6 +11,7 @@ namespace NutellaTinderEllaApi.Mappers
         {
             CreateMap<UserPostDTO, User>().ReverseMap();
             CreateMap<User, UserDTO>().ReverseMap();
+            CreateMap<User, UserMatchesDTO>().ReverseMap();
             CreateMap<LikesPostDTO, User>().ReverseMap();
             CreateMap<SwipePostDTO, User>().ReverseMap();
         }

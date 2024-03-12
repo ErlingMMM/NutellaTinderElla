@@ -39,6 +39,9 @@ namespace NutellaTinderEllaApi.Data.Models
 
         public int Age { get; set; }
 
+        public int AgePreferenceMaximum { get; set; }
+        public int AgePreferenceMinimum { get; set; }
+
         public ICollection<Like> Likes { get; set; }
         public ICollection<Swipes> Swipes { get; set; }
 

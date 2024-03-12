@@ -29,35 +29,36 @@ namespace NutellaTinderEllaApi.Data
         {
 
             modelBuilder.Entity<User>().HasData(
-                new User
-                {
-                    Id = 1,
-                    Name = "Emily Johnson",
-                    Age = 28,
-                    Email = "emily.johnson@example.com",
-                    Bio = "Passionate about travel, cooking, and outdoor adventures. Looking for someone to explore new cuisines and hiking trails with. Let's create memories together!",
-                    Gender = 1,
-                    GenderPreference = 1,
-                    Seeking = 0,
-                    PhoneNumber = "555-123-4567",
-                    Picture = "emily_profile_picture.jpg",
-                },
-
-
-
-                new User
-                {
-                    Id = 2,
-                    Name = "John Smith",
-                    Age = 32,
-                    Email = "john.smith@example.com",
-                    Bio = "Tech enthusiast, coffee lover, and avid reader. Seeking meaningful connections and engaging conversations. Let's explore the city together!",
-                    Gender = 0,
-                    GenderPreference = 2,
-                    Seeking = 1,
-                    PhoneNumber = "555-987-6543",
-                    Picture = "john_profile_picture.jpg"
-                },
+       new User
+       {
+           Id = 1,
+           Name = "Emily Johnson",
+           Age = 28,
+           Email = "emily.johnson@example.com",
+           Bio = "Passionate about travel, cooking, and outdoor adventures. Looking for someone to explore new cuisines and hiking trails with. Let's create memories together!",
+           Gender = 1,
+           GenderPreference = 1,
+           Seeking = 0,
+           PhoneNumber = "555-123-4567",
+           Picture = "emily_profile_picture.jpg",
+           AgePreferenceMaximum = 35,
+           AgePreferenceMinimum = 25
+       },
+new User
+{
+    Id = 2,
+    Name = "John Smith",
+    Age = 32,
+    Email = "john.smith@example.com",
+    Bio = "Tech enthusiast, coffee lover, and avid reader. Seeking meaningful connections and engaging conversations. Let's explore the city together!",
+    Gender = 0,
+    GenderPreference = 2,
+    Seeking = 1,
+    PhoneNumber = "555-987-6543",
+    Picture = "john_profile_picture.jpg",
+    AgePreferenceMaximum = 40,
+    AgePreferenceMinimum = 28
+},
 new User
 {
     Id = 3,
@@ -69,7 +70,9 @@ new User
     GenderPreference = 0,
     Seeking = 1,
     PhoneNumber = "555-555-5555",
-    Picture = "olivia_profile_picture.jpg"
+    Picture = "olivia_profile_picture.jpg",
+    AgePreferenceMaximum = 30,
+    AgePreferenceMinimum = 20
 },
 new User
 {
@@ -82,7 +85,9 @@ new User
     GenderPreference = 1,
     Seeking = 1,
     PhoneNumber = "555-222-3333",
-    Picture = "michael_profile_picture.jpg"
+    Picture = "michael_profile_picture.jpg",
+    AgePreferenceMaximum = 35,
+    AgePreferenceMinimum = 25
 },
 new User
 {
@@ -95,7 +100,9 @@ new User
     GenderPreference = 0,
     Seeking = 0,
     PhoneNumber = "555-777-8888",
-    Picture = "sophia_profile_picture.jpg"
+    Picture = "sophia_profile_picture.jpg",
+    AgePreferenceMaximum = 33,
+    AgePreferenceMinimum = 23
 },
 new User
 {
@@ -108,7 +115,9 @@ new User
     GenderPreference = 2,
     Seeking = 0,
     PhoneNumber = "555-444-5555",
-    Picture = "daniel_profile_picture.jpg"
+    Picture = "daniel_profile_picture.jpg",
+    AgePreferenceMaximum = 35,
+    AgePreferenceMinimum = 25
 },
 new User
 {
@@ -121,7 +130,9 @@ new User
     GenderPreference = 1,
     Seeking = 1,
     PhoneNumber = "555-999-1111",
-    Picture = "emma_profile_picture.jpg"
+    Picture = "emma_profile_picture.jpg",
+    AgePreferenceMaximum = 32,
+    AgePreferenceMinimum = 22
 },
 new User
 {
@@ -134,7 +145,9 @@ new User
     GenderPreference = 0,
     Seeking = 0,
     PhoneNumber = "555-333-2222",
-    Picture = "liam_profile_picture.jpg"
+    Picture = "liam_profile_picture.jpg",
+    AgePreferenceMaximum = 38,
+    AgePreferenceMinimum = 28
 },
 new User
 {
@@ -147,7 +160,9 @@ new User
     GenderPreference = 2,
     Seeking = 1,
     PhoneNumber = "555-666-9999",
-    Picture = "ava_profile_picture.jpg"
+    Picture = "ava_profile_picture.jpg",
+    AgePreferenceMaximum = 35,
+    AgePreferenceMinimum = 25
 },
 new User
 {
@@ -160,7 +175,9 @@ new User
     GenderPreference = 1,
     Seeking = 1,
     PhoneNumber = "555-111-7777",
-    Picture = "ethan_profile_picture.jpg"
+    Picture = "ethan_profile_picture.jpg",
+    AgePreferenceMaximum = 35,
+    AgePreferenceMinimum = 25
 },
 new User
 {
@@ -173,8 +190,11 @@ new User
     GenderPreference = 0,
     Seeking = 0,
     PhoneNumber = "555-888-2222",
-    Picture = "isabella_profile_picture.jpg"
+    Picture = "isabella_profile_picture.jpg",
+    AgePreferenceMaximum = 33,
+    AgePreferenceMinimum = 23
 }
+
     );
 
             modelBuilder.Entity<Like>()

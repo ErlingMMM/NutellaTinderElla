@@ -11,7 +11,7 @@ using NutellaTinderEllaApi.Data;
 namespace NutellaTinderElla.Migrations
 {
     [DbContext(typeof(TinderDbContext))]
-    [Migration("20240311135822_TinderEF")]
+    [Migration("20240312090906_TinderEF")]
     partial class TinderEF
     {
         /// <inheritdoc />
@@ -98,6 +98,12 @@ namespace NutellaTinderElla.Migrations
                     b.Property<int>("Age")
                         .HasColumnType("int");
 
+                    b.Property<int>("AgePreferenceMaximum")
+                        .HasColumnType("int");
+
+                    b.Property<int>("AgePreferenceMinimum")
+                        .HasColumnType("int");
+
                     b.Property<string>("Bio")
                         .IsRequired()
                         .HasMaxLength(255)
@@ -141,6 +147,8 @@ namespace NutellaTinderElla.Migrations
                         {
                             Id = 1,
                             Age = 28,
+                            AgePreferenceMaximum = 35,
+                            AgePreferenceMinimum = 25,
                             Bio = "Passionate about travel, cooking, and outdoor adventures. Looking for someone to explore new cuisines and hiking trails with. Let's create memories together!",
                             Email = "emily.johnson@example.com",
                             Gender = 1,
@@ -154,6 +162,8 @@ namespace NutellaTinderElla.Migrations
                         {
                             Id = 2,
                             Age = 32,
+                            AgePreferenceMaximum = 40,
+                            AgePreferenceMinimum = 28,
                             Bio = "Tech enthusiast, coffee lover, and avid reader. Seeking meaningful connections and engaging conversations. Let's explore the city together!",
                             Email = "john.smith@example.com",
                             Gender = 0,
@@ -167,6 +177,8 @@ namespace NutellaTinderElla.Migrations
                         {
                             Id = 3,
                             Age = 25,
+                            AgePreferenceMaximum = 30,
+                            AgePreferenceMinimum = 20,
                             Bio = "Passionate about art, music, and nature. Looking for someone who shares similar interests and enjoys spontaneous adventures.",
                             Email = "olivia.brown@example.com",
                             Gender = 1,
@@ -180,6 +192,8 @@ namespace NutellaTinderElla.Migrations
                         {
                             Id = 4,
                             Age = 30,
+                            AgePreferenceMaximum = 35,
+                            AgePreferenceMinimum = 25,
                             Bio = "Fitness enthusiast, foodie, and travel addict. Seeking someone to join me on my next hiking trip and explore new culinary delights.",
                             Email = "michael.johnson@example.com",
                             Gender = 0,
@@ -193,6 +207,8 @@ namespace NutellaTinderElla.Migrations
                         {
                             Id = 5,
                             Age = 27,
+                            AgePreferenceMaximum = 33,
+                            AgePreferenceMinimum = 23,
                             Bio = "Bookworm, animal lover, and adventure seeker. Looking for someone who values intellectual conversations and enjoys outdoor activities.",
                             Email = "sophia.martinez@example.com",
                             Gender = 1,
@@ -206,6 +222,8 @@ namespace NutellaTinderElla.Migrations
                         {
                             Id = 6,
                             Age = 29,
+                            AgePreferenceMaximum = 35,
+                            AgePreferenceMinimum = 25,
                             Bio = "Gamer, movie buff, and pizza enthusiast. Seeking someone to binge-watch Netflix series and share a slice of pizza with.",
                             Email = "daniel.wilson@example.com",
                             Gender = 0,
@@ -219,6 +237,8 @@ namespace NutellaTinderElla.Migrations
                         {
                             Id = 7,
                             Age = 26,
+                            AgePreferenceMaximum = 32,
+                            AgePreferenceMinimum = 22,
                             Bio = "Nature lover, coffee addict, and amateur photographer. Seeking someone who appreciates sunsets, coffee dates, and long walks in the park.",
                             Email = "emma.taylor@example.com",
                             Gender = 1,
@@ -232,6 +252,8 @@ namespace NutellaTinderElla.Migrations
                         {
                             Id = 8,
                             Age = 31,
+                            AgePreferenceMaximum = 38,
+                            AgePreferenceMinimum = 28,
                             Bio = "Tech geek, foodie, and aspiring chef. Looking for someone who enjoys experimenting with new recipes and binge-watching sci-fi movies.",
                             Email = "liam.anderson@example.com",
                             Gender = 0,
@@ -245,6 +267,8 @@ namespace NutellaTinderElla.Migrations
                         {
                             Id = 9,
                             Age = 28,
+                            AgePreferenceMaximum = 35,
+                            AgePreferenceMinimum = 25,
                             Bio = "Music lover, traveler, and coffee connoisseur. Seeking someone who enjoys spontaneous road trips, live music, and lazy Sundays.",
                             Email = "ava.thomas@example.com",
                             Gender = 1,
@@ -258,6 +282,8 @@ namespace NutellaTinderElla.Migrations
                         {
                             Id = 10,
                             Age = 29,
+                            AgePreferenceMaximum = 35,
+                            AgePreferenceMinimum = 25,
                             Bio = "Adventure seeker, adrenaline junkie, and thrill-seeker. Looking for someone who shares a passion for extreme sports and outdoor adventures.",
                             Email = "ethan.walker@example.com",
                             Gender = 0,
@@ -271,6 +297,8 @@ namespace NutellaTinderElla.Migrations
                         {
                             Id = 11,
                             Age = 26,
+                            AgePreferenceMaximum = 33,
+                            AgePreferenceMinimum = 23,
                             Bio = "Art enthusiast, wine lover, and aspiring painter. Seeking someone who appreciates creativity, fine wine, and deep conversations.",
                             Email = "isabella.garcia@example.com",
                             Gender = 1,

@@ -1,7 +1,7 @@
 ﻿
 
 
-namespace NutellaTinderElla.Data.Dtos.ActiveUser
+namespace NutellaTinderElla.Data.Dtos.User
 {
     public class UserDTO
     {
@@ -24,7 +24,8 @@ namespace NutellaTinderElla.Data.Dtos.ActiveUser
 
         public int Age { get; set; }
 
-
+        public int AgePreferenceMaximum { get; set; }
+        public int AgePreferenceMinimum { get; set; }
 
     }
 }

@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace NutellaTinderElla.Data.Dtos.ActiveUser
+namespace NutellaTinderElla.Data.Dtos.User
 {
     public class UserPostDTO
     {
@@ -23,5 +23,7 @@ namespace NutellaTinderElla.Data.Dtos.ActiveUser
         [StringLength(255)]
         public string Picture { get; set; } = null!;
         public int Age { get; set; }
+        public int AgePreferenceMaximum { get; set; }
+        public int AgePreferenceMinimum { get; set; }
     }
 }

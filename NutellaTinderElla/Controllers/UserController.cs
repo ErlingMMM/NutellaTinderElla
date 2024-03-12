@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using NutellaTinderElla.Data.Dtos.ActiveUser;
+using NutellaTinderElla.Data.Dtos.User;
 using NutellaTinderElla.Data.Dtos.Matching;
 using NutellaTinderElla.Data.Models;
 using NutellaTinderElla.Services.ActiveUser;
@@ -96,6 +96,11 @@ namespace NutellaTinderElla.Controllers
 
                 // Match users with the same seeking preference
                 u.Seeking == swipingUser.Seeking &&
+
+                u.AgePreferenceMaximum >= swipingUser.Age &&
+                u.AgePreferenceMinimum <= swipingUser.Age &&
+                u.Age >= swipingUser.AgePreferenceMinimum &&
+                u.Age <= swipingUser.AgePreferenceMaximum &&
 
                 // Match users based on gender preferences
                 (
@@ -252,7 +257,7 @@ namespace NutellaTinderElla.Controllers
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpGet("{id}/matches")]
-        public async Task<ActionResult<IEnumerable<UserDTO>>> GetMatchesForUser(int id)
+        public async Task<ActionResult<IEnumerable<UserMatchesDTO>>> GetMatchesForUser(int id)
         {
             var allUsers = await _userService.GetAllAsync();
 
@@ -263,7 +268,7 @@ namespace NutellaTinderElla.Controllers
             ).ToList();
 
             // Explicitly map each user to UserDTO
-            var userDTOs = usersToDisplay.Select(u => _mapper.Map<UserDTO>(u)).ToList();
+            var userDTOs = usersToDisplay.Select(u => _mapper.Map<UserMatchesDTO>(u)).ToList();
 
             return Ok(userDTOs);
         }
