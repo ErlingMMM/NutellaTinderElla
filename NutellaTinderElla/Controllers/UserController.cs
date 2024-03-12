@@ -353,14 +353,16 @@ namespace NutellaTinderElla.Controllers
 
                     return Ok("Message sent");
                 }
+                else
+                {
+                    return BadRequest("Users do not match");
+                }
 
             }
             catch (EntityNotFoundException ex)
             {
                 return NotFound(ex.Message);
             }
-
-            return NoContent();
         }
     }
 }
