@@ -79,7 +79,7 @@ namespace NutellaTinderElla.Controllers
         /// <param name="swipingUserId"></param>
         /// <returns></returns>
         [HttpGet("{swipingUserId}/newSwipe")]
-        public async Task<ActionResult<IEnumerable<UserDTO>>> GetUsersNotSwiped(int swipingUserId)
+        public async Task<ActionResult<IEnumerable<UserPublicDataDTO>>> GetUsersNotSwiped(int swipingUserId)
         {
             // Get all users from the database
             var allUsers = await _userService.GetAllAsync();
@@ -119,7 +119,7 @@ namespace NutellaTinderElla.Controllers
             // If there are no users left after filtering, return an empty list
             if (usersToDisplay.Count == 0)
             {
-                return Ok(new List<UserDTO>());
+                return Ok(new List<UserPublicDataDTO>());
             }
 
             // Get a random index within the range of filtered users
@@ -129,7 +129,7 @@ namespace NutellaTinderElla.Controllers
             var randomUser = usersToDisplay[randomIndex];
 
             // Map the user profile to DTO and return
-            return Ok(_mapper.Map<UserDTO>(randomUser));
+            return Ok(_mapper.Map<UserPublicDataDTO>(randomUser));
         }
 
 
@@ -257,7 +257,7 @@ namespace NutellaTinderElla.Controllers
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpGet("{id}/matches")]
-        public async Task<ActionResult<IEnumerable<UserMatchesDTO>>> GetMatchesForUser(int id)
+        public async Task<ActionResult<IEnumerable<UserPublicDataDTO>>> GetMatchesForUser(int id)
         {
             var allUsers = await _userService.GetAllAsync();
 
@@ -268,7 +268,7 @@ namespace NutellaTinderElla.Controllers
             ).ToList();
 
             // Explicitly map each user to UserDTO
-            var userDTOs = usersToDisplay.Select(u => _mapper.Map<UserMatchesDTO>(u)).ToList();
+            var userDTOs = usersToDisplay.Select(u => _mapper.Map<UserPublicDataDTO>(u)).ToList();
 
             return Ok(userDTOs);
         }

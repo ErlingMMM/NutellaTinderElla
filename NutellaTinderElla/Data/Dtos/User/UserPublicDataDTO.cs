@@ -1,6 +1,6 @@
 ﻿namespace NutellaTinderElla.Data.Dtos.User
 {
-    public class UserMatchesDTO
+    public class UserPublicDataDTO
     {
 
         public int Id { get; set; }
