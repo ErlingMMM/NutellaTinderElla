@@ -20,6 +20,9 @@ namespace NutellaTinderEllaApi.Data.Models
 
         public DateTime Timestamp { get; set; }
         public bool IsViewed { get; set; } = false;
+
+        public DateTime TimeViewed { get; set; }
+
         public bool IsLiked { get; set; } = false;
 
     }

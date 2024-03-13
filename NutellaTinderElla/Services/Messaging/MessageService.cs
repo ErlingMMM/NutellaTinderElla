@@ -82,15 +82,13 @@ namespace NutellaTinderElla.Services.Messaging
             foreach (var message in messagesToUpdate)
             {
                 message.IsViewed = true;
+                message.TimeViewed = DateTime.UtcNow;
             }
 
             await _context.SaveChangesAsync();
 
             return messagesToUpdate;
         }
-
-
-
 
 
         //Helper Methods

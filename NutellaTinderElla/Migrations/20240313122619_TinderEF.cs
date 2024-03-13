@@ -99,6 +99,7 @@ namespace NutellaTinderElla.Migrations
                     Content = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Timestamp = table.Column<DateTime>(type: "datetime2", nullable: false),
                     IsViewed = table.Column<bool>(type: "bit", nullable: false),
+                    TimeViewed = table.Column<DateTime>(type: "datetime2", nullable: false),
                     IsLiked = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>

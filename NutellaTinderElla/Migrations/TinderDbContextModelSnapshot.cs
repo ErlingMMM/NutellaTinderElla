@@ -109,6 +109,9 @@ namespace NutellaTinderElla.Migrations
                     b.Property<int>("SenderId")
                         .HasColumnType("int");
 
+                    b.Property<DateTime>("TimeViewed")
+                        .HasColumnType("datetime2");
+
                     b.Property<DateTime>("Timestamp")
                         .HasColumnType("datetime2");
 

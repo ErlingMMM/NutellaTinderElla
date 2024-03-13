@@ -12,7 +12,7 @@ using NutellaTinderEllaApi.Data;
 namespace NutellaTinderElla.Migrations
 {
     [DbContext(typeof(TinderDbContext))]
-    [Migration("20240313093137_TinderEF")]
+    [Migration("20240313122619_TinderEF")]
     partial class TinderEF
     {
         /// <inheritdoc />
@@ -111,6 +111,9 @@ namespace NutellaTinderElla.Migrations
 
                     b.Property<int>("SenderId")
                         .HasColumnType("int");
+
+                    b.Property<DateTime>("TimeViewed")
+                        .HasColumnType("datetime2");
 
                     b.Property<DateTime>("Timestamp")
                         .HasColumnType("datetime2");

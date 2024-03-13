@@ -14,5 +14,7 @@
         public bool IsLiked { get; set; }
 
         public DateTime Timestamp { get; set; }
+        public DateTime TimeViewed { get; set; }
+
     }
 }
