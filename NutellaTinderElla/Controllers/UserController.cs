@@ -430,11 +430,11 @@ namespace NutellaTinderElla.Controllers
                     return NotFound($"Message with id {messageId} not found");
                 }
 
-                message.IsLiked = true;
+                message.IsLiked = !message.IsLiked;
 
                 await _messageService.UpdateAsync(message);
 
-                return Ok(new MessageLikedDTO { IsLiked = true });
+                return Ok(new MessageLikedDTO { IsLiked = message.IsLiked });
 
             }
             catch (EntityNotFoundException ex)
