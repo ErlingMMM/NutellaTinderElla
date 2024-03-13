@@ -12,7 +12,7 @@ using NutellaTinderEllaApi.Data;
 namespace NutellaTinderElla.Migrations
 {
     [DbContext(typeof(TinderDbContext))]
-    [Migration("20240312160105_TinderEF")]
+    [Migration("20240313093137_TinderEF")]
     partial class TinderEF
     {
         /// <inheritdoc />
@@ -100,6 +100,12 @@ namespace NutellaTinderElla.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("IsLiked")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsViewed")
+                        .HasColumnType("bit");
+
                     b.Property<int>("ReceiverId")
                         .HasColumnType("int");
 
@@ -109,16 +115,11 @@ namespace NutellaTinderElla.Migrations
                     b.Property<DateTime>("Timestamp")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("UserId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
                     b.HasIndex("ReceiverId");
 
                     b.HasIndex("SenderId");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("Message");
                 });
@@ -412,14 +413,10 @@ namespace NutellaTinderElla.Migrations
                         .IsRequired();
 
                     b.HasOne("NutellaTinderEllaApi.Data.Models.User", "Sender")
-                        .WithMany("SentMessages")
+                        .WithMany("Messages")
                         .HasForeignKey("SenderId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
-
-                    b.HasOne("NutellaTinderEllaApi.Data.Models.User", null)
-                        .WithMany("ReceivedMessages")
-                        .HasForeignKey("UserId");
 
                     b.Navigation("Receiver");
 
@@ -432,9 +429,7 @@ namespace NutellaTinderElla.Migrations
 
                     b.Navigation("Matches");
 
-                    b.Navigation("ReceivedMessages");
-
-                    b.Navigation("SentMessages");
+                    b.Navigation("Messages");
 
                     b.Navigation("Swipes");
                 });

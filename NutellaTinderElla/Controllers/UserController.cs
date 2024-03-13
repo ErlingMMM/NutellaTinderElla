@@ -9,6 +9,7 @@ using NutellaTinderEllaApi.Data.Exceptions;
 using NutellaTinderEllaApi.Data.Models;
 using System.Net.Mime;
 using NutellaTinderElla.Services.Messaging;
+using NutellaTinderElla.Data.Dtos.Messaging;
 
 namespace NutellaTinderElla.Controllers
 
@@ -360,6 +361,36 @@ namespace NutellaTinderElla.Controllers
                     return BadRequest("Users do not match");
                 }
 
+            }
+            catch (EntityNotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
+        }
+
+
+
+        /// <summary>
+        /// Get a spesific users messages between a spesific match using their id's.
+        /// </summary>
+        /// <param name="userId"></param>
+        ///<param name="matchingUserId"></param>
+        /// <returns></returns>
+        [HttpGet("{userId}/messages/{matchingUserId}")]
+        public async Task<ActionResult<MessageDTO>> GetMessagesForTwoMatchingUsers(int userId, int matchingUserId)
+        {
+            try
+            {
+                var allMessages = await _messageService.GetAllAsync();
+
+                var messagesToDisplay = allMessages.Where(m =>
+                (m.SenderId == userId && m.ReceiverId == matchingUserId) ||
+                (m.SenderId == matchingUserId && m.ReceiverId == userId)
+               ).ToList();
+
+                var messageDTOs = messagesToDisplay.Select(m => _mapper.Map<MessageDTO>(m)).ToList();
+
+                return Ok(messageDTOs);
             }
             catch (EntityNotFoundException ex)
             {

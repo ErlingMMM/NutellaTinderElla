@@ -98,7 +98,8 @@ namespace NutellaTinderElla.Migrations
                     ReceiverId = table.Column<int>(type: "int", nullable: false),
                     Content = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Timestamp = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UserId = table.Column<int>(type: "int", nullable: true)
+                    IsViewed = table.Column<bool>(type: "bit", nullable: false),
+                    IsLiked = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -115,11 +116,6 @@ namespace NutellaTinderElla.Migrations
                         principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Message_Users_UserId",
-                        column: x => x.UserId,
-                        principalTable: "Users",
-                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -185,11 +181,6 @@ namespace NutellaTinderElla.Migrations
                 name: "IX_Message_SenderId",
                 table: "Message",
                 column: "SenderId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Message_UserId",
-                table: "Message",
-                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Swipes_SwipedUserId",
