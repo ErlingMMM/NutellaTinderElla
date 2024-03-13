@@ -377,7 +377,7 @@ namespace NutellaTinderElla.Controllers
         ///<param name="matchingUserId"></param>
         /// <returns></returns>
         [HttpGet("{userId}/messages/{matchingUserId}")]
-        public async Task<ActionResult<MessageDTO>> GetMessagesForTwoMatchingUsers(int userId, int matchingUserId)
+        public async Task<ActionResult<MessageDTO>> GetMessagesForTwoMatchingUsers(int userId, int matchingUserId, int pageIndex = 0, int pageSize = 20)
         {
             try
             {
@@ -386,7 +386,6 @@ namespace NutellaTinderElla.Controllers
                 {
                     return NotFound($"User with id {userId} not found");
                 }
-
 
                 var matchingUser = await _userService.GetByIdAsync(matchingUserId);
                 if (matchingUser == null)
@@ -398,20 +397,41 @@ namespace NutellaTinderElla.Controllers
 
                 await _messageService.UpdateMessagesToRead(user.Id, matchingUser.Id);
 
-                var messagesToDisplay = allMessages.Where(m =>
-                (m.SenderId == user.Id && m.ReceiverId == matchingUser.Id) ||
-                (m.SenderId == matchingUser.Id && m.ReceiverId == user.Id)
-               ).ToList();
+                var filteredMessages = allMessages.Where(m =>
+                    (m.SenderId == user.Id && m.ReceiverId == matchingUser.Id) ||
+                    (m.SenderId == matchingUser.Id && m.ReceiverId == user.Id)
+                ).OrderByDescending(m => m.Timestamp);
+
+                var totalCount = filteredMessages.Count();
+                var totalPages = (int)Math.Ceiling((double)totalCount / pageSize);
+
+                if (pageIndex < 0 || pageIndex >= totalPages)
+                {
+                    return BadRequest("Invalid page index");
+                }
+
+                var messagesToDisplay = filteredMessages
+                    .Skip(pageIndex * pageSize)
+                    .Take(pageSize)
+                    .ToList();
 
                 var messageDTOs = messagesToDisplay.Select(m => _mapper.Map<MessageDTO>(m)).ToList();
 
-                return Ok(messageDTOs);
+                return Ok(new
+                {
+                    TotalCount = totalCount,
+                    TotalPages = totalPages,
+                    CurrentPage = pageIndex,
+                    PageSize = pageSize,
+                    Messages = messageDTOs
+                });
             }
             catch (EntityNotFoundException ex)
             {
                 return NotFound(ex.Message);
             }
         }
+
 
 
         /// <summary>
