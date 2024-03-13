@@ -381,11 +381,27 @@ namespace NutellaTinderElla.Controllers
         {
             try
             {
+
+                var user = await _userService.GetByIdAsync(userId);
+                if (user == null)
+                {
+                    return NotFound($"User with id {userId} not found");
+                }
+
+
+                var matchingUser = await _userService.GetByIdAsync(matchingUserId);
+                if (matchingUser == null)
+                {
+                    return NotFound($"Matching user with id {matchingUserId} not found");
+                }
+
                 var allMessages = await _messageService.GetAllAsync();
 
+                await _messageService.UpdateMessagesToRead(user.Id, matchingUser.Id);
+
                 var messagesToDisplay = allMessages.Where(m =>
-                (m.SenderId == userId && m.ReceiverId == matchingUserId) ||
-                (m.SenderId == matchingUserId && m.ReceiverId == userId)
+                (m.SenderId == user.Id && m.ReceiverId == matchingUser.Id) ||
+                (m.SenderId == matchingUser.Id && m.ReceiverId == user.Id)
                ).ToList();
 
                 var messageDTOs = messagesToDisplay.Select(m => _mapper.Map<MessageDTO>(m)).ToList();

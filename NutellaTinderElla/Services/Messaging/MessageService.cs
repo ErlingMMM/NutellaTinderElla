@@ -73,6 +73,26 @@ namespace NutellaTinderElla.Services.Messaging
         }
 
 
+        public async Task<IEnumerable<Message>> UpdateMessagesToRead(int senderId, int receiverId)
+        {
+            var messagesToUpdate = await _context.Message
+                .Where(m => m.SenderId == receiverId && m.ReceiverId == senderId && !m.IsViewed)
+                .ToListAsync();
+
+            foreach (var message in messagesToUpdate)
+            {
+                message.IsViewed = true;
+            }
+
+            await _context.SaveChangesAsync();
+
+            return messagesToUpdate;
+        }
+
+
+
+
+
         //Helper Methods
         private async Task<bool> UserExistsAsync(int id)
         {
