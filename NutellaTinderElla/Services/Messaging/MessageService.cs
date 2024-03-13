@@ -50,7 +50,7 @@ namespace NutellaTinderElla.Services.Messaging
 
         public async Task<Message> UpdateAsync(Message obj)
         {
-            if (!await UserExistsAsync(obj.Id))
+            if (!await MessageExistsAsync(obj.Id))
                 throw new EntityNotFoundException(nameof(Message), obj.Id);
 
 
@@ -94,7 +94,7 @@ namespace NutellaTinderElla.Services.Messaging
 
 
         //Helper Methods
-        private async Task<bool> UserExistsAsync(int id)
+        private async Task<bool> MessageExistsAsync(int id)
         {
             return await _context.User.AnyAsync(c => c.Id == id);
         }

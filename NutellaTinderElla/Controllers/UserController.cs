@@ -381,7 +381,6 @@ namespace NutellaTinderElla.Controllers
         {
             try
             {
-
                 var user = await _userService.GetByIdAsync(userId);
                 if (user == null)
                 {
@@ -413,6 +412,38 @@ namespace NutellaTinderElla.Controllers
                 return NotFound(ex.Message);
             }
         }
+
+
+        /// <summary>
+        /// Set a message to be liked
+        /// </summary>
+        /// <param name="messageId"></param>
+        /// <returns></returns>
+        [HttpPut("{messageId}/likedMessage/")]
+        public async Task<ActionResult<MessageLikedDTO>> PutLikeToMessage(int messageId)
+        {
+            try
+            {
+                var message = await _messageService.GetByIdAsync(messageId);
+                if (message == null)
+                {
+                    return NotFound($"Message with id {messageId} not found");
+                }
+
+                message.IsLiked = true;
+
+                await _messageService.UpdateAsync(message);
+
+                return Ok(new MessageLikedDTO { IsLiked = true });
+
+            }
+            catch (EntityNotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
+        }
+
+
     }
 }
 
