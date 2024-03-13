@@ -10,6 +10,9 @@
 
         public string Content { get; set; } = string.Empty;
 
+        public bool IsViewed { get; set; }
+        public bool IsLiked { get; set; }
+
         public DateTime Timestamp { get; set; }
     }
 }
