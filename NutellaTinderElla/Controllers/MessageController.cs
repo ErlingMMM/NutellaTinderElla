@@ -3,11 +3,9 @@ using Microsoft.AspNetCore.Mvc;
 using NutellaTinderElla.Services.UserData;
 using NutellaTinderElla.Services.Matching;
 using NutellaTinderEllaApi.Data.Exceptions;
-using NutellaTinderEllaApi.Data.Models;
 using System.Net.Mime;
 using NutellaTinderElla.Services.Messaging;
 using NutellaTinderElla.Data.Dtos.Messaging;
-using System.Reflection;
 
 namespace NutellaTinderElla.Controllers
 
@@ -50,14 +48,14 @@ namespace NutellaTinderElla.Controllers
                 var sender = await _userService.GetByIdAsync(senderId);
                 var receiver = await _userService.GetByIdAsync(receiverId);
 
-                if (sender == null) return NotFound($"Sender user with id {senderId} not found");
-
-                if (receiver == null) return NotFound($"Receiver user with id {receiverId} not found");
-
-                if (!await _matchService.HasMatchAsync(sender.Id, receiver.Id)) return BadRequest("Users do not match");
+                if (sender == null) 
+                    return NotFound($"Sender user with id {senderId} not found");
+                if (receiver == null) 
+                    return NotFound($"Receiver user with id {receiverId} not found");
+                if (!await _matchService.HasMatchAsync(sender.Id, receiver.Id)) 
+                    return BadRequest("Users do not match");
 
                 await _messageService.SendMessageAsync(sender.Id, receiver.Id, content);
-
                 return Ok("Message sent");
             }
             catch (EntityNotFoundException ex)
@@ -83,9 +81,11 @@ namespace NutellaTinderElla.Controllers
                 var user = await _userService.GetByIdAsync(userId);
                 var matchingUser = await _userService.GetByIdAsync(matchingUserId);
 
-                if (user == null) return NotFound($"User with id {userId} not found");
+                if (user == null) 
+                    return NotFound($"User with id {userId} not found");
 
-                if (matchingUser == null) return NotFound($"Matching user with id {matchingUserId} not found");
+                if (matchingUser == null) 
+                    return NotFound($"Matching user with id {matchingUserId} not found");
 
                 var allMessages = await _messageService.GetAllAsync();
 
