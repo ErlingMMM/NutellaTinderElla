@@ -2,6 +2,7 @@
 using NutellaTinderEllaApi.Data.Exceptions;
 using NutellaTinderEllaApi.Data.Models;
 using NutellaTinderEllaApi.Data;
+using NutellaTinderElla.Data.Models;
 
 namespace NutellaTinderElla.Services.UserData
 
@@ -83,6 +84,9 @@ namespace NutellaTinderElla.Services.UserData
 
             return allMatches;
         }
+
+
+
 
 
         public async Task<IEnumerable<int>> GetSwipedUserIdsAsync(int swipingUserId)

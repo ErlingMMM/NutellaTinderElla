@@ -2,6 +2,7 @@
 using NutellaTinderEllaApi.Data.Exceptions;
 using NutellaTinderEllaApi.Data.Models;
 using NutellaTinderEllaApi.Data;
+using NutellaTinderElla.Data.Models;
 
 namespace NutellaTinderElla.Services.Messaging
 {
@@ -45,6 +46,24 @@ namespace NutellaTinderElla.Services.Messaging
             {
                 _context.Message.RemoveRange(messages);
                 await _context.SaveChangesAsync();
+            }
+        }
+
+
+        public async Task DeleteMessagesById(int userId, int matchedUserId)
+        {
+            var message = await _context.Message.Where(m =>
+                (m.SenderId == userId && m.ReceiverId == matchedUserId) ||
+                (m.SenderId == matchedUserId && m.ReceiverId == userId)).ToListAsync();
+
+            if (message.Any())
+            {
+                _context.Message.RemoveRange(message);
+                await _context.SaveChangesAsync();
+            }
+            else
+            {
+                throw new EntityNotFoundException(nameof(Like), userId, matchedUserId);
             }
         }
 

@@ -292,6 +292,7 @@ namespace NutellaTinderElla.Controllers
             await _matchService.DeleteMatchByIdAsync(userId, matchedUserId);
             await _likeService.DeleteLikeByIdAsync(userId, matchedUserId);
             await _swipeService.DeleteSwipeByIdAsync(userId, matchedUserId);
+            await _messageService.DeleteMessagesById(userId, matchedUserId);
             return NoContent();
         }
 
