@@ -81,15 +81,7 @@ namespace NutellaTinderElla.Services.Messaging
 
 
 
-        public async Task<IEnumerable<Message>> GetUsersMessagesByUsersIdsAsync(int senderId, int receiverId)
-        {
-            var messages = await _context.Message
-                .Where(m => (m.SenderId == senderId && m.ReceiverId == receiverId) ||
-                            (m.ReceiverId == senderId && m.SenderId == receiverId))
-                .ToListAsync();
 
-            return messages;
-        }
 
 
         public async Task<IEnumerable<Message>> UpdateMessagesToRead(int senderId, int receiverId)
