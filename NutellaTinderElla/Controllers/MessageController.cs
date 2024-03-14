@@ -48,11 +48,11 @@ namespace NutellaTinderElla.Controllers
                 var sender = await _userService.GetByIdAsync(senderId);
                 var receiver = await _userService.GetByIdAsync(receiverId);
 
-                if (sender == null) 
+                if (sender == null)
                     return NotFound($"Sender user with id {senderId} not found");
-                if (receiver == null) 
+                if (receiver == null)
                     return NotFound($"Receiver user with id {receiverId} not found");
-                if (!await _matchService.HasMatchAsync(sender.Id, receiver.Id)) 
+                if (!await _matchService.HasMatchAsync(sender.Id, receiver.Id))
                     return BadRequest("Users do not match");
 
                 await _messageService.SendMessageAsync(sender.Id, receiver.Id, content);
@@ -81,10 +81,10 @@ namespace NutellaTinderElla.Controllers
                 var user = await _userService.GetByIdAsync(userId);
                 var matchingUser = await _userService.GetByIdAsync(matchingUserId);
 
-                if (user == null) 
+                if (user == null)
                     return NotFound($"User with id {userId} not found");
 
-                if (matchingUser == null) 
+                if (matchingUser == null)
                     return NotFound($"Matching user with id {matchingUserId} not found");
 
                 var allMessages = await _messageService.GetAllAsync();
@@ -100,9 +100,8 @@ namespace NutellaTinderElla.Controllers
                 var totalPages = (int)Math.Ceiling((double)totalCount / pageSize);
 
                 if (pageIndex < 0 || pageIndex >= totalPages)
-                {
                     return BadRequest("Invalid page index");
-                }
+
 
                 var messagesToDisplay = filteredMessages
                     .Skip(pageIndex * pageSize)
@@ -140,14 +139,10 @@ namespace NutellaTinderElla.Controllers
             {
                 var message = await _messageService.GetByIdAsync(messageId);
                 if (message == null)
-                {
                     return NotFound($"Message with id {messageId} not found");
-                }
 
                 message.IsLiked = !message.IsLiked;
-
                 await _messageService.UpdateAsync(message);
-
                 return Ok(new MessageLikedDTO { IsLiked = message.IsLiked });
 
             }

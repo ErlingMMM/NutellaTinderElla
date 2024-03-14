@@ -78,9 +78,7 @@ namespace NutellaTinderElla.Controllers
 
             // If there are no users left after filtering, return an empty list
             if (usersToDisplay.Count == 0)
-            {
                 return Ok(new List<UserPublicDataDTO>());
-            }
 
             // Get a random index within the range of filtered users
             var randomIndex = new Random().Next(0, usersToDisplay.Count);
@@ -107,16 +105,12 @@ namespace NutellaTinderElla.Controllers
                 // Retrieve the swiped user from the database based on the provided id
                 var swiper = await _userService.GetByIdAsync(id);
                 if (swiper == null)
-                {
                     return NotFound($"Swiper with id {id} not found");
-                }
 
                 // Retrieve the swiped user from the database based on the provided likedUserId
                 var swipedUserEntity = await _userService.GetByIdAsync(swipedUser.SwipedUserId);
                 if (swipedUserEntity == null)
-                {
                     return NotFound($"Swiped user with id {swipedUser.SwipedUserId} not found");
-                }
 
                 // Create a new swipe entity
                 var swipe = new Swipes

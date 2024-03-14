@@ -44,17 +44,13 @@ namespace NutellaTinderElla.Controllers
                 // Retrieve the liker user from the database based on the provided id
                 var liker = await _userService.GetByIdAsync(id);
                 if (liker == null)
-                {
                     return NotFound($"Liker with id {id} not found");
-                }
 
 
                 // Retrieve the liked user from the database based on the provided likedUserId
                 var likedUserEntity = await _userService.GetByIdAsync(likedUser.LikedUserId);
                 if (likedUserEntity == null)
-                {
                     return NotFound($"Liked user with id {likedUser.LikedUserId} not found");
-                }
 
                 var like = new Like
                 {
