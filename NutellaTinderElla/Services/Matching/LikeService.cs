@@ -2,7 +2,6 @@
 using NutellaTinderEllaApi.Data.Exceptions;
 using NutellaTinderEllaApi.Data;
 using NutellaTinderElla.Data.Models;
-using NutellaTinderEllaApi.Data.Models;
 
 namespace NutellaTinderElla.Services.Matching
 {
