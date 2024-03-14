@@ -15,7 +15,6 @@ namespace NutellaTinderElla.Controllers
     [Route("api/v1/User")]
     [Produces(MediaTypeNames.Application.Json)]
     [ApiConventionType(typeof(DefaultApiConventions))]
-
     public class UserController : ControllerBase
     {
         private readonly IUserService _userService;
@@ -72,10 +71,6 @@ namespace NutellaTinderElla.Controllers
                 new { id = newUser.Id },
                 _mapper.Map<UserDTO>(newUser));
         }
-
-
-
-
 
 
         /// <summary>

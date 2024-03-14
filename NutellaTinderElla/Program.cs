@@ -22,7 +22,7 @@ namespace NutellaTinderEllaApi
                 {
                     Version = "v1",
                     Title = "Cruella Nutella Tinder Ella API",
-                    Description = "API for the best dating app",
+                    Description = "API for the best dating app. Gender.0 = Man, Gender.1 = Woman, Gender.2 = Nonbinary, Seeking.0 = Friendship, Seeking.1 = Relationship, Seeking.2 = Not sure, Seeking.3 = Casual, GenderPreference.0 = Man, GenderPreference.1 = Women, GenderPreference.2 = All, GenderPreference.3 = NonBinary",
                     TermsOfService = new Uri("https://example.com/terms"),
                     Contact = new OpenApiContact
                     {
