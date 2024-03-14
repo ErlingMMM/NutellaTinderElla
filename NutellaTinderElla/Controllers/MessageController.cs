@@ -36,59 +36,30 @@ namespace NutellaTinderElla.Controllers
         }
 
 
-        /// <summary>
-        /// Adding liked users for spesific userprofile from database using userprofiles id, expects code 204
-        /// </summary>
-        /// <param name="senderId"></param>
-        /// <param name="receiverId"></param>
-        /// <param name="content"></param>
-        /// <returns></returns>
         [HttpPost("{senderId}/message/{receiverId}")]
         public async Task<IActionResult> PostMessage(int senderId, int receiverId, string content)
         {
             try
             {
-
                 var sender = await _userService.GetByIdAsync(senderId);
-                if (sender == null)
-                {
-                    return NotFound($"Sender user with id {senderId} not found");
-                }
+                var receiver = await _userService.GetByIdAsync(receiverId);
 
+                if (sender == null) return NotFound($"Sender user with id {senderId} not found");
+                
+                if (receiver == null) return NotFound($"Receiver user with id {receiverId} not found");
 
-                var receivingUserEntity = await _userService.GetByIdAsync(receiverId);
-                if (receivingUserEntity == null)
-                {
-                    return NotFound($"Receiving user with id {receiverId} not found");
-                }
+                if (!await _matchService.HasMatchAsync(sender.Id, receiver.Id)) return BadRequest("Users do not match");
+               
+                await _messageService.SendMessageAsync(sender.Id, receiver.Id, content);
 
-
-                var hasMatch = await _matchService.HasMatchAsync(sender.Id, receivingUserEntity.Id);
-                if (hasMatch)
-                {
-                    var message = new Message
-                    {
-                        SenderId = sender.Id,
-                        ReceiverId = receivingUserEntity.Id,
-                        Content = content,
-                        Timestamp = DateTime.UtcNow
-                    };
-
-                    await _messageService.AddAsync(message);
-
-                    return Ok("Message sent");
-                }
-                else
-                {
-                    return BadRequest("Users do not match");
-                }
-
+                return Ok("Message sent");
             }
             catch (EntityNotFoundException ex)
             {
                 return NotFound(ex.Message);
             }
         }
+
 
 
 

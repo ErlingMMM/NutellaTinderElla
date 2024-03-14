@@ -91,6 +91,21 @@ namespace NutellaTinderElla.Services.Messaging
         }
 
 
+
+        public async Task SendMessageAsync(int senderId, int receiverId, string content)
+        {
+            var message = new Message
+            {
+                SenderId = senderId,
+                ReceiverId = receiverId,
+                Content = content,
+                Timestamp = DateTime.UtcNow
+            };
+
+            await _context.AddAsync(message);
+        }
+
+
         //Helper Methods
         private async Task<bool> MessageExistsAsync(int id)
         {
