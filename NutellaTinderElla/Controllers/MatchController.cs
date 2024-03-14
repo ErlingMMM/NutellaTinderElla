@@ -1,12 +1,8 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using NutellaTinderElla.Data.Dtos.UserData;
-using NutellaTinderElla.Data.Dtos.Matching;
-using NutellaTinderElla.Data.Models;
 using NutellaTinderElla.Services.UserData;
 using NutellaTinderElla.Services.Matching;
-using NutellaTinderEllaApi.Data.Exceptions;
-using NutellaTinderEllaApi.Data.Models;
 using System.Net.Mime;
 using NutellaTinderElla.Services.Messaging;
 
@@ -56,7 +52,6 @@ namespace NutellaTinderElla.Controllers
                 rowsWithUsersMatches.Contains(u.Id)
             ).ToList();
 
-            // Explicitly map each user to UserDTO
             var userDTOs = usersToDisplay.Select(u => _mapper.Map<UserPublicDataDTO>(u)).ToList();
 
             return Ok(userDTOs);
