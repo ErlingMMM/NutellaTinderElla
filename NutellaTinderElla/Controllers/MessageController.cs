@@ -16,7 +16,6 @@ namespace NutellaTinderElla.Controllers
     [Produces(MediaTypeNames.Application.Json)]
     [ApiConventionType(typeof(DefaultApiConventions))]
 
-    //These files define the API endpoints, their routes, and the actions to be taken for each endpoint.
 
     public class MessageController : ControllerBase
     {
@@ -35,7 +34,13 @@ namespace NutellaTinderElla.Controllers
             _mapper = mapper;
         }
 
-
+        /// <summary>
+        /// Adding liked users for spesific userprofile from database using userprofiles id, expects code 204
+        /// </summary>
+        /// <param name="senderId"></param>
+        /// <param name="receiverId"></param>
+        /// <param name="content"></param>
+        /// <returns></returns>
         [HttpPost("{senderId}/message/{receiverId}")]
         public async Task<IActionResult> PostMessage(int senderId, int receiverId, string content)
         {
@@ -45,11 +50,11 @@ namespace NutellaTinderElla.Controllers
                 var receiver = await _userService.GetByIdAsync(receiverId);
 
                 if (sender == null) return NotFound($"Sender user with id {senderId} not found");
-                
+
                 if (receiver == null) return NotFound($"Receiver user with id {receiverId} not found");
 
                 if (!await _matchService.HasMatchAsync(sender.Id, receiver.Id)) return BadRequest("Users do not match");
-               
+
                 await _messageService.SendMessageAsync(sender.Id, receiver.Id, content);
 
                 return Ok("Message sent");

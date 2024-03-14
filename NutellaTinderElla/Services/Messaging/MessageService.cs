@@ -102,7 +102,8 @@ namespace NutellaTinderElla.Services.Messaging
                 Timestamp = DateTime.UtcNow
             };
 
-            await _context.AddAsync(message);
+            _context.Message.Add(message);
+            await _context.SaveChangesAsync();
         }
 
 
