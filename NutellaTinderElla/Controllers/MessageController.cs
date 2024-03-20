@@ -111,6 +111,12 @@ namespace NutellaTinderElla.Controllers
                     .Take(pageSize)
                     .ToList();
 
+                foreach (var message in messagesToDisplay)
+                {
+                    // Decrypt the content before mapping it to MessageDTO
+                    message.Content = _encryptionService.Decrypt(message.Content);
+                }
+
                 var messageDTOs = messagesToDisplay.Select(m => _mapper.Map<MessageDTO>(m)).ToList();
 
                 return Ok(new

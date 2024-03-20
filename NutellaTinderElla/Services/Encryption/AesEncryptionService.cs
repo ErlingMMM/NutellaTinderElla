@@ -11,7 +11,12 @@ namespace NutellaTinderElla.Services.Encryption
         public AesEncryptionService(IConfiguration configuration)
         {
 
-            string secretKey = configuration["Encryption:SecretKey"];
+            string? secretKey = configuration?["Encryption:SecretKey"];
+
+            if (secretKey == null)
+            {
+                throw new ArgumentNullException(nameof(secretKey), "Encryption secret key is not provided.");
+            }
 
             // Generate a 256-bit key
             using (SHA256 sha = SHA256.Create())
