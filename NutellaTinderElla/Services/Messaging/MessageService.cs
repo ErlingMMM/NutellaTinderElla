@@ -122,6 +122,17 @@ namespace NutellaTinderElla.Services.Messaging
             await _context.SaveChangesAsync();
         }
 
+        public async Task<IEnumerable<Message>> GetFilteredMessagesForTwoUsersAsync(int userId, int matchingUserId)
+        {
+            var allMessages = await GetAllAsync();
+
+            var filteredMessages = allMessages.Where(m =>
+                (m.SenderId == userId && m.ReceiverId == matchingUserId) ||
+                (m.SenderId == matchingUserId && m.ReceiverId == userId)
+            ).OrderByDescending(m => m.Timestamp).ToList();
+
+            return filteredMessages;
+        }
 
         //Helper Methods
         private async Task<bool> MessageExistsAsync(int id)

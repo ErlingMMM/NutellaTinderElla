@@ -97,10 +97,7 @@ namespace NutellaTinderElla.Controllers
 
                 await _messageService.UpdateMessagesToRead(user.Id, matchingUser.Id);
 
-                var filteredMessages = allMessages.Where(m =>
-                    (m.SenderId == user.Id && m.ReceiverId == matchingUser.Id) ||
-                    (m.SenderId == matchingUser.Id && m.ReceiverId == user.Id)
-                ).OrderByDescending(m => m.Timestamp);
+                var filteredMessages = await _messageService.GetFilteredMessagesForTwoUsersAsync(userId, matchingUserId);
 
                 var totalCount = filteredMessages.Count();
                 var totalPages = (int)Math.Ceiling((double)totalCount / pageSize);
