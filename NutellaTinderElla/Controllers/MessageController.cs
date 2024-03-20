@@ -59,9 +59,10 @@ namespace NutellaTinderElla.Controllers
                 if (!await _matchService.HasMatchAsync(sender.Id, receiver.Id))
                     return BadRequest("Users do not match");
 
-                var encryptedContent = _encryptionService.Encrypt(content);
+                byte[] iv;
+                var encryptedContent = _encryptionService.Encrypt(content, out iv);
 
-                await _messageService.SendMessageAsync(sender.Id, receiver.Id, encryptedContent);
+                await _messageService.SendMessageAsync(sender.Id, receiver.Id, encryptedContent, iv);
                 return Ok("Message sent");
             }
             catch (EntityNotFoundException ex)
@@ -114,7 +115,7 @@ namespace NutellaTinderElla.Controllers
                 foreach (var message in messagesToDisplay)
                 {
                     // Decrypt the content before mapping it to MessageDTO
-                    message.Content = _encryptionService.Decrypt(message.Content);
+                    message.Content = _encryptionService.Decrypt(message.Content, message.IV);
                 }
 
                 var messageDTOs = messagesToDisplay.Select(m => _mapper.Map<MessageDTO>(m)).ToList();

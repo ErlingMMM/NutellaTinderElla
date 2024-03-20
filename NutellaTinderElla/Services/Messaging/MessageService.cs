@@ -11,13 +11,13 @@ namespace NutellaTinderElla.Services.Messaging
     {
 
         private readonly TinderDbContext _context;
-        private readonly AesEncryptionService encryptionService;
+        private readonly AesEncryptionService _encryptionService;
 
 
         public MessageService(TinderDbContext context, AesEncryptionService encryptionService)
         {
             _context = context;
-            this.encryptionService = encryptionService;
+            _encryptionService = encryptionService;
         }
 
         public async Task<ICollection<Message>> GetAllAsync()
@@ -36,11 +36,15 @@ namespace NutellaTinderElla.Services.Messaging
         }
         public async Task<Message> AddAsync(Message obj)
         {
-            obj.Content = encryptionService.Encrypt(obj.Content);
+            byte[] iv;
+            obj.Content = _encryptionService.Encrypt(obj.Content, out iv);
+            obj.IV = iv;
+
             await _context.Message.AddAsync(obj);
             await _context.SaveChangesAsync();
             return obj;
         }
+
         public async Task DeleteByIdAsync(int id)
         {
 
@@ -108,13 +112,14 @@ namespace NutellaTinderElla.Services.Messaging
 
 
 
-        public async Task SendMessageAsync(int senderId, int receiverId, string content)
+        public async Task SendMessageAsync(int senderId, int receiverId, string content, byte[] iv)
         {
             var message = new Message
             {
                 SenderId = senderId,
                 ReceiverId = receiverId,
                 Content = content,
+                IV = iv,
                 Timestamp = DateTime.UtcNow
             };
 
@@ -130,6 +135,7 @@ namespace NutellaTinderElla.Services.Messaging
                 (m.SenderId == userId && m.ReceiverId == matchingUserId) ||
                 (m.SenderId == matchingUserId && m.ReceiverId == userId)
             ).OrderByDescending(m => m.Timestamp).ToList();
+
 
             return filteredMessages;
         }

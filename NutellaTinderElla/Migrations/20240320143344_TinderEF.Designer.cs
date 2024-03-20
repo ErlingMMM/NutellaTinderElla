@@ -12,7 +12,7 @@ using NutellaTinderEllaApi.Data;
 namespace NutellaTinderElla.Migrations
 {
     [DbContext(typeof(TinderDbContext))]
-    [Migration("20240313122619_TinderEF")]
+    [Migration("20240320143344_TinderEF")]
     partial class TinderEF
     {
         /// <inheritdoc />
@@ -99,6 +99,10 @@ namespace NutellaTinderElla.Migrations
                     b.Property<string>("Content")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<byte[]>("IV")
+                        .IsRequired()
+                        .HasColumnType("varbinary(max)");
 
                     b.Property<bool>("IsLiked")
                         .HasColumnType("bit");

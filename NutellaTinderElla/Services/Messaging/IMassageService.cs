@@ -9,7 +9,7 @@ namespace NutellaTinderElla.Services.Messaging
     {
         Task<IEnumerable<Message>> UpdateMessagesToRead(int senderId, int receiverId);
         Task<IEnumerable<Message>> GetFilteredMessagesForTwoUsersAsync(int userId, int matchingUserId);
-        Task SendMessageAsync(int senderId, int receiverId, string content);
+        Task SendMessageAsync(int senderId, int receiverId, string content, byte[] iv);
         Task DeleteMessagesById(int userId, int matchedUserId);
     }
 }

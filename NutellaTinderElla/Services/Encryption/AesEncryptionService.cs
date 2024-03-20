@@ -1,4 +1,5 @@
-﻿using System.Security.Cryptography;
+﻿using System;
+using System.Security.Cryptography;
 using System.Text;
 
 namespace NutellaTinderElla.Services.Encryption
@@ -6,11 +7,9 @@ namespace NutellaTinderElla.Services.Encryption
     public class AesEncryptionService
     {
         private readonly byte[] key;
-        private readonly byte[] iv;
 
         public AesEncryptionService(IConfiguration configuration)
         {
-
             string? secretKey = configuration?["Encryption:SecretKey"];
 
             if (secretKey == null)
@@ -23,17 +22,16 @@ namespace NutellaTinderElla.Services.Encryption
             {
                 key = sha.ComputeHash(Encoding.UTF8.GetBytes(secretKey));
             }
-
-            // Generate a 128-bit IV
-            iv = new byte[16];
-            new Random().NextBytes(iv);
         }
 
-        public string Encrypt(string plaintext)
+        public string Encrypt(string plaintext, out byte[] iv)
         {
             using Aes aesAlg = Aes.Create();
             aesAlg.Key = key;
-            aesAlg.IV = iv;
+            aesAlg.GenerateIV();
+            iv = aesAlg.IV;
+
+            aesAlg.Padding = PaddingMode.PKCS7;
 
             ICryptoTransform encryptor = aesAlg.CreateEncryptor(aesAlg.Key, aesAlg.IV);
 
@@ -46,20 +44,41 @@ namespace NutellaTinderElla.Services.Encryption
             return Convert.ToBase64String(msEncrypt.ToArray());
         }
 
-        public string Decrypt(string ciphertext)
+        public string Decrypt(string ciphertext, byte[] iv)
         {
-            byte[] cipherBytes = Convert.FromBase64String(ciphertext);
+            try
+            {
+                byte[] cipherBytes = Convert.FromBase64String(ciphertext);
 
-            using Aes aesAlg = Aes.Create();
-            aesAlg.Key = key;
-            aesAlg.IV = iv;
+                using Aes aesAlg = Aes.Create();
+                aesAlg.Key = key;
+                aesAlg.IV = iv; // Use the provided IV for decryption
+                aesAlg.Padding = PaddingMode.PKCS7;
 
-            ICryptoTransform decryptor = aesAlg.CreateDecryptor(aesAlg.Key, aesAlg.IV);
+                ICryptoTransform decryptor = aesAlg.CreateDecryptor(aesAlg.Key, aesAlg.IV);
 
-            using MemoryStream msDecrypt = new(cipherBytes);
-            using CryptoStream csDecrypt = new(msDecrypt, decryptor, CryptoStreamMode.Read);
-            using StreamReader srDecrypt = new(csDecrypt);
-            return srDecrypt.ReadToEnd();
+                byte[] decryptedBytes = decryptor.TransformFinalBlock(cipherBytes, 0, cipherBytes.Length);
+
+                // Convert the decrypted bytes to a string
+                string decryptedText = Encoding.UTF8.GetString(decryptedBytes);
+
+                return decryptedText;
+            }
+            catch (FormatException ex)
+            {
+                // Handle base64 decoding errors
+                throw new CryptographicException("Invalid base64 string format.", ex);
+            }
+            catch (CryptographicException ex)
+            {
+                // Handle cryptographic errors
+                throw new CryptographicException("Error occurred during decryption.", ex);
+            }
+            catch (Exception ex)
+            {
+                // Handle other unexpected errors
+                throw new Exception("An unexpected error occurred during decryption.", ex);
+            }
         }
     }
 }

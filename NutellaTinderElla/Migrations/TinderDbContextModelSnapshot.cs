@@ -97,6 +97,10 @@ namespace NutellaTinderElla.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<byte[]>("IV")
+                        .IsRequired()
+                        .HasColumnType("varbinary(max)");
+
                     b.Property<bool>("IsLiked")
                         .HasColumnType("bit");
 
