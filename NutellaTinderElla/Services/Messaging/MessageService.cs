@@ -36,8 +36,7 @@ namespace NutellaTinderElla.Services.Messaging
         }
         public async Task<Message> AddAsync(Message obj)
         {
-            byte[] iv;
-            obj.Content = _encryptionService.Encrypt(obj.Content, out iv);
+            obj.Content = _encryptionService.Encrypt(obj.Content, out byte[] iv);
             obj.IV = iv;
 
             await _context.Message.AddAsync(obj);

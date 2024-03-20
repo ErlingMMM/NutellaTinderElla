@@ -15,7 +15,7 @@ namespace NutellaTinderEllaApi.Data.Models
 
         public int ReceiverId { get; set; }
         public User? Receiver { get; set; }
-        public byte[] IV { get; set; }
+        public byte[]? IV { get; set; }
 
         public string Content { get; set; } = string.Empty;
 

@@ -18,10 +18,8 @@ namespace NutellaTinderElla.Services.Encryption
             }
 
             // Generate a 256-bit key
-            using (SHA256 sha = SHA256.Create())
-            {
-                key = sha.ComputeHash(Encoding.UTF8.GetBytes(secretKey));
-            }
+            using SHA256 sha = SHA256.Create();
+            key = sha.ComputeHash(Encoding.UTF8.GetBytes(secretKey));
         }
 
         public string Encrypt(string plaintext, out byte[] iv)
