@@ -5,6 +5,7 @@ using System.Reflection;
 using Microsoft.EntityFrameworkCore;
 using NutellaTinderElla.Services.Matching;
 using NutellaTinderElla.Services.Messaging;
+using NutellaTinderElla.Services.Encryption;
 
 namespace NutellaTinderEllaApi
 {
@@ -45,10 +46,10 @@ namespace NutellaTinderEllaApi
             builder.Services.AddScoped<ISwipeService, SwipeService>();
             builder.Services.AddScoped<IMatchService, MatchService>();
             builder.Services.AddScoped<IMessageService, MessageService>();
+            builder.Services.AddScoped<AesEncryptionService>();
 
             // Add automapper
             builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-
             builder.Services.AddAutoMapper(typeof(UserService));
 
 

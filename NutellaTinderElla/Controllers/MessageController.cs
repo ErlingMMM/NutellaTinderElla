@@ -6,6 +6,7 @@ using NutellaTinderEllaApi.Data.Exceptions;
 using System.Net.Mime;
 using NutellaTinderElla.Services.Messaging;
 using NutellaTinderElla.Data.Dtos.Messaging;
+using NutellaTinderElla.Services.Encryption;
 
 namespace NutellaTinderElla.Controllers
 
@@ -21,15 +22,18 @@ namespace NutellaTinderElla.Controllers
         private readonly IUserService _userService;
         private readonly IMatchService _matchService;
         private readonly IMessageService _messageService;
+        private readonly AesEncryptionService _encryptionService;
+
 
         private readonly IMapper _mapper;
 
-        public MessageController(IUserService userService, IMatchService matchService, IMessageService messageService,
+        public MessageController(IUserService userService, IMatchService matchService, IMessageService messageService, AesEncryptionService encryptionService,
             IMapper mapper)
         {
             _userService = userService;
             _matchService = matchService;
             _messageService = messageService;
+            _encryptionService = encryptionService;
             _mapper = mapper;
         }
 
@@ -55,7 +59,9 @@ namespace NutellaTinderElla.Controllers
                 if (!await _matchService.HasMatchAsync(sender.Id, receiver.Id))
                     return BadRequest("Users do not match");
 
-                await _messageService.SendMessageAsync(sender.Id, receiver.Id, content);
+                var encryptedContent = _encryptionService.Encrypt(content);
+
+                await _messageService.SendMessageAsync(sender.Id, receiver.Id, encryptedContent);
                 return Ok("Message sent");
             }
             catch (EntityNotFoundException ex)

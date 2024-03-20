@@ -3,6 +3,7 @@ using NutellaTinderEllaApi.Data.Exceptions;
 using NutellaTinderEllaApi.Data.Models;
 using NutellaTinderEllaApi.Data;
 using NutellaTinderElla.Data.Models;
+using NutellaTinderElla.Services.Encryption;
 
 namespace NutellaTinderElla.Services.Messaging
 {
@@ -10,10 +11,13 @@ namespace NutellaTinderElla.Services.Messaging
     {
 
         private readonly TinderDbContext _context;
+        private readonly AesEncryptionService encryptionService;
 
-        public MessageService(TinderDbContext context)
+
+        public MessageService(TinderDbContext context, AesEncryptionService encryptionService)
         {
             _context = context;
+            this.encryptionService = encryptionService;
         }
 
         public async Task<ICollection<Message>> GetAllAsync()
@@ -32,6 +36,7 @@ namespace NutellaTinderElla.Services.Messaging
         }
         public async Task<Message> AddAsync(Message obj)
         {
+            obj.Content = encryptionService.Encrypt(obj.Content);
             await _context.Message.AddAsync(obj);
             await _context.SaveChangesAsync();
             return obj;
