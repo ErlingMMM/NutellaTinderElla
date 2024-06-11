@@ -31,9 +31,7 @@ namespace NutellaTinderEllaApi
                         Url = new Uri("https://example.com/contact")
                     }
                 });
-                // using System.Reflection;
-                var xmlFilename = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
-                options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFilename));
+          
             });
 
 
